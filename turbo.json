@@ -24,6 +24,9 @@
     "start:dev": {
       "cache": false,
       "persistent": true
+    },
+    "format": {
+      "dependsOn": ["^format"]
     }
   }
 }
