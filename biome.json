@@ -10,7 +10,8 @@
             ".husky",
             "coverage/**/*",
             "tmp/**/*",
-            "out-tsc/**/*"
+            "out-tsc/**/*",
+            "packages"
         ]
     },
     "formatter": {
