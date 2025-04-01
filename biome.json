@@ -11,7 +11,12 @@
             "coverage/**/*",
             "tmp/**/*",
             "out-tsc/**/*",
-            "packages"
+            "packages",
+            "node_modules",
+            ".next",
+            "build",
+            ".cache",
+            "*.log"
         ]
     },
     "formatter": {
@@ -69,7 +74,9 @@
                 "noNamespace": "error",
                 "useAsConstAssertion": "error",
                 "useBlockStatements": "off",
-                "useThrowOnlyError": "error"
+                "useThrowOnlyError": "error",
+                "useDefaultParameterLast": "error",
+                "useSingleVarDeclarator": "error"
             },
             "suspicious": {
                 "noAssignInExpressions": "error",
@@ -101,7 +108,10 @@
                 "useAwait": "error",
                 "useGetterReturn": "error",
                 "useNamespaceKeyword": "error",
-                "useValidTypeof": "error"
+                "useValidTypeof": "error",
+                "noConsoleLog": "warn",
+                "noImplicitAnyLet": "error",
+                "noRedundantUseStrict": "error"
             }
         }
     },
@@ -117,7 +127,10 @@
             "attributePosition": "auto",
             "bracketSpacing": true
         },
-        "globals": []
+        "globals": [],
+        "parser": {
+            "unsafeParameterDecoratorsEnabled": true
+        }
     },
     "overrides": [
         {
@@ -144,7 +157,9 @@
                     "style": {
                         "noArguments": "error",
                         "noVar": "error",
-                        "useConst": "error"
+                        "useConst": "error",
+                        "useDefaultParameterLast": "error",
+                        "useSingleVarDeclarator": "error"
                     },
                     "suspicious": {
                         "noClassAssign": "off",
@@ -155,7 +170,10 @@
                         "noImportAssign": "off",
                         "noRedeclare": "off",
                         "noUnsafeNegation": "off",
-                        "useGetterReturn": "off"
+                        "useGetterReturn": "off",
+                        "noConsoleLog": "warn",
+                        "noImplicitAnyLet": "error",
+                        "noRedundantUseStrict": "error"
                     }
                 }
             }
@@ -195,6 +213,17 @@
         {
             "include": ["./apps/web/**/*.css", "./apps/web/**/*.scss"],
             "linter": { "rules": {} }
+        },
+        {
+            "include": ["**/*.spec.ts", "**/*.test.ts"],
+            "linter": {
+                "rules": {
+                    "suspicious": {
+                        "noExplicitAny": "off",
+                        "noConsoleLog": "off"
+                    }
+                }
+            }
         }
     ]
 }
