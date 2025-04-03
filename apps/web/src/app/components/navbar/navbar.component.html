@@ -1,6 +1,27 @@
-<nav>
-    <ul>
-        <li><a routerLink="/">home</a></li>
-        <li><a routerLink="/dash">dash</a></li>
-    </ul>
+<nav class="flex items-center justify-between p-2 bg-black text-white relative">
+    <div>
+        <h4 class="text-2xl font-bold">
+            <a routerLink="/">
+                GoLink
+            </a>
+        </h4>
+    </div>
+    <div class="flex items-center space-x-4 capitalize text-sm">
+        <ul class="flex space-x-4 font-medium">
+            <li><a routerLink="/">home</a></li>
+            <li><a routerLink="/dash">dash</a></li>
+        </ul>
+        <span>|</span>
+        <ul class="flex gap-1.5">
+            <a routerLink="/login" class="flex items-center md:space-x-2 border border-white rounded-3xl px-3 py-1">
+                <app-login-icon svgClass="size-4"></app-login-icon>
+                <span class="hidden md:block">login</span>
+            </a>
+
+            <a routerLink="/register" class="flex items-center md:space-x-2 border border-white rounded-3xl px-3 py-1">
+                <app-register-icon svgClass="size-4"></app-register-icon>
+                <span class="hidden md:block">register</span>
+            </a>
+        </ul>
+    </div>
 </nav>
