@@ -1,4 +1,4 @@
-<nav class="flex items-center justify-between p-2 bg-black text-white relative">
+<nav class="flex items-center justify-between py-2 bg-black text-white">
     <div>
         <h4 class="text-2xl font-bold">
             <a routerLink="/">
@@ -6,22 +6,20 @@
             </a>
         </h4>
     </div>
-    <div class="flex items-center space-x-4 capitalize text-sm">
-        <ul class="flex space-x-4 font-medium">
+    <div class="flex items-center space-x-2 capitalize text-sm">
+        <ul class="flex space-x-2 text-sm">
             <li><a routerLink="/">home</a></li>
             <li><a routerLink="/dash">dash</a></li>
         </ul>
         <span>|</span>
         <ul class="flex gap-1.5">
-            <a routerLink="/login" class="flex items-center md:space-x-2 border border-white rounded-3xl px-3 py-1">
+            <app-link name="New link" routerLink="/auth" [queryParams]="{ mode: 'login' }" variant="tertiary">
                 <app-login-icon svgClass="size-4"></app-login-icon>
-                <span class="hidden md:block">login</span>
-            </a>
+            </app-link>
 
-            <a routerLink="/register" class="flex items-center md:space-x-2 border border-white rounded-3xl px-3 py-1">
+            <app-link name="register" routerLink="/auth" [queryParams]="{ mode: 'register' }" variant="tertiary">
                 <app-register-icon svgClass="size-4"></app-register-icon>
-                <span class="hidden md:block">register</span>
-            </a>
+            </app-link>
         </ul>
     </div>
 </nav>

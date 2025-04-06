@@ -7,9 +7,9 @@ import { Component, Input } from '@angular/core'
 })
 export class LinkComponent {
     @Input() name: string = ''
-    @Input() href: string = ''
     @Input() target: '_blank' | '_self' = '_self'
-    @Input() variant: 'primary' | 'secondary' | 'outline' = 'primary'
+    @Input() variant: 'primary' | 'secondary' | 'outline' | 'tertiary' =
+        'primary'
     @Input() customClass?: string
 
     getClasses(): string {
@@ -19,6 +19,8 @@ export class LinkComponent {
         const variantClasses = {
             primary: 'border border-blue-600 bg-blue-600 text-white',
             secondary: 'border border-black bg-[#19191C] text-white',
+            tertiary: 'border border-white bg-transparent text-white',
+
             outline:
                 'border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white'
         }
