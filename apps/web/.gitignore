@@ -27,6 +27,15 @@ yarn-error.log
 .env.production.local
 .env.local
 
+# Environment files
+/src/environments/environment.ts
+/src/environments/environment.development.ts
+/src/environments/environment.prod.ts
+
+# But don't ignore the templates
+!/src/environments/environment.template.ts
+!/src/environments/environment.*.template.ts
+
 # Visual Studio Code
 .vscode/*
 !.vscode/settings.json
