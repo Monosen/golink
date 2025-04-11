@@ -4,11 +4,20 @@
     <span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"></span>
   </button>
   @if (showDropdown) {
-    <ul class="min-w-40 absolute z-40 bg-black mt-7 border-gray-600 border rounded-lg p-3 space-y-1 capitalize">
-      <li class="flex space-x-2 items-center"><app-user-icon></app-user-icon><a href="#">My Profile</a></li>
-      <li class="flex space-x-2 items-center"><app-setting-icon></app-setting-icon><a href="#">Settings</a></li>
-      <li class="flex space-x-2 items-center"><a href="#">Report a Bug</a></li>
-      <li class="flex space-x-2 items-center"><a href="#">Log Out</a></li>
-    </ul>
+  <div
+    class="min-w-40 absolute z-40 bg-black mt-7 border-gray-600 border rounded-lg p-3 flex flex-col gap-y-2 capitalize">
+    <app-menu-item label="My Profile">
+      <app-user-icon icon></app-user-icon>
+    </app-menu-item>
+    <app-menu-item label="Settings" routerLink="/dash/settings">
+      <app-setting-icon icon></app-setting-icon>
+    </app-menu-item>
+    <app-menu-item label="Report a Bug" href="https://github.com/Monosen/golink/issues/new" target="_blank">
+      <app-bug-icon icon></app-bug-icon>
+    </app-menu-item>
+    <app-menu-item label="Log Out" (click)="authService.logout()">
+      <app-login-icon icon></app-login-icon>
+    </app-menu-item>
+  </div>
   }
 </div>

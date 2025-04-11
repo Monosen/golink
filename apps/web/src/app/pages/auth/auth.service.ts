@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core'
+import { inject, Injectable } from '@angular/core'
 import { BehaviorSubject, Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { map, catchError, tap, shareReplay } from 'rxjs/operators'
+import { Router } from '@angular/router'
 
 export interface GithubUser {
     login: string
@@ -48,6 +49,7 @@ export class AuthService {
     public user$ = this.userSubject.asObservable()
     private apiUrl = 'http://localhost:3000/api' // Adjust this URL to match your API endpoint
     private isLoggedIn = false // Simula el estado de inicio de sesión
+    private router = inject(Router)
 
     constructor(private http: HttpClient) {
         // Intentar cargar el usuario del localStorage al iniciar
@@ -127,6 +129,7 @@ export class AuthService {
         localStorage.removeItem('user')
         localStorage.removeItem('auth_token')
         this.userSubject.next(null)
+        this.router.navigate(['/'])
     }
 
     isAuthenticated(): Observable<boolean> {
