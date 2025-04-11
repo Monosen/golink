@@ -1,0 +1,12 @@
+<div class="flex justify-between mt-4">
+    <input type="text" placeholder="search links">
+    <div class="space-x-2">
+        <button>01 / 50</button>
+        <button class="" (click)="toggleCreateLinkModal()" >create link</button>
+    </div>
+
+    @if (showCreateLinkModal){
+    <app-create-new-link></app-create-new-link>
+    }
+
+</div>
