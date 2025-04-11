@@ -7,12 +7,7 @@
         <button>01 / 50</button>
         <button
             class="bg-blue-600 p-2 rounded-lg hover:opacity-70 transition-opacity duration-300 capitalize opacity-300"
-            (click)="toggleCreateLinkModal()">create
+            (click)="openModal()">create
             link</button>
     </div>
-
-    @if (showCreateLinkModal){
-    <app-create-new-link></app-create-new-link>
-    }
-
 </div>

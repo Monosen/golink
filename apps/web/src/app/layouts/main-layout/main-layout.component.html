@@ -3,7 +3,7 @@
         <div class="m-auto px-1 sm:px-3 md:px-5 lg:px-7 xl:w-7xl">
             <app-navbar></app-navbar>
             @if(showSubNavbar){
-                <app-sub-navbar></app-sub-navbar>
+            <app-sub-navbar></app-sub-navbar>
             }
         </div>
     </header>
@@ -19,4 +19,10 @@
         class="mx-auto px-1 sm:px-3 md:px-5 lg:px-7 xl:w-7xl absolute bottom-0 left-1/2 -translate-x-1/2 w-full z-30">
         <app-footer></app-footer>
     </footer>
+
+    <!-- Modal -->
+
+    @if (showModal) {
+    <app-create-new-link></app-create-new-link>
+    }
 </div>

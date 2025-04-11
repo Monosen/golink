@@ -1,20 +1,41 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import {
+    Component,
+    CUSTOM_ELEMENTS_SCHEMA,
+    Inject,
+    OnDestroy,
+    OnInit
+} from '@angular/core'
 import { NavbarComponent } from '../../components/navbar/navbar.component'
 import { FooterComponent } from '../../components/footer/footer.component'
 import { SubNavbarComponent } from '../../components/sub-navbar/sub-navbar.component'
 import { filter, Subscription } from 'rxjs'
 import { NavigationEnd, Router } from '@angular/router'
+import { ModalService } from '../../services/modal.service'
+import { CreateNewLinkComponent } from '../../components/modals/create-new-link/create-new-link.component'
 
 @Component({
     selector: 'app-main-layout',
-    imports: [NavbarComponent, FooterComponent, SubNavbarComponent],
+    imports: [
+        NavbarComponent,
+        FooterComponent,
+        SubNavbarComponent,
+        CreateNewLinkComponent
+    ],
     templateUrl: './main-layout.component.html'
 })
 export class MainLayoutComponent implements OnInit, OnDestroy {
     showSubNavbar: boolean = false
     routerSubscription: Subscription | undefined
+    showModal: boolean = false
 
-    constructor(private router: Router) {}
+    constructor(
+        private router: Router,
+        private modalService: ModalService
+    ) {
+        this.modalService.modalState$.subscribe((state: boolean) => {
+            this.showModal = state
+        })
+    }
 
     ngOnInit(): void {
         this.routerSubscription = this.router.events

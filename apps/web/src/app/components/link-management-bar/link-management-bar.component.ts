@@ -1,16 +1,16 @@
 import { Component } from '@angular/core'
-import { CreateNewLinkComponent } from '../modals/create-new-link/create-new-link.component'
+import { ModalService } from '../../services/modal.service'
 import { SearchIconComponent } from '../../assets/icons/search-icon/search-icon.component'
 
 @Component({
     selector: 'app-link-management-bar',
-    imports: [CreateNewLinkComponent, SearchIconComponent],
-    templateUrl: './link-management-bar.component.html'
+    templateUrl: './link-management-bar.component.html',
+    imports: [SearchIconComponent]
 })
 export class LinkManagementBarComponent {
-    showCreateLinkModal = false
+    constructor(private modalService: ModalService) {}
 
-    toggleCreateLinkModal() {
-        this.showCreateLinkModal = !this.showCreateLinkModal
+    openModal() {
+        this.modalService.openModal() // Llama al servicio para abrir el modal
     }
 }
