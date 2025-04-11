@@ -1,8 +1,14 @@
 <div class="flex justify-between mt-4">
-    <input type="text" placeholder="search links">
+    <div class="flex items-center space-x-2 rounded-2xl px-2 border border-gray-300 text-gray-300">
+        <app-search-icon></app-search-icon>
+        <input class="focus:outline-none placeholder:capitalize" type="text" placeholder="search links">
+    </div>
     <div class="space-x-2">
         <button>01 / 50</button>
-        <button class="" (click)="toggleCreateLinkModal()" >create link</button>
+        <button
+            class="bg-blue-600 p-2 rounded-lg hover:opacity-70 transition-opacity duration-300 capitalize opacity-300"
+            (click)="toggleCreateLinkModal()">create
+            link</button>
     </div>
 
     @if (showCreateLinkModal){
