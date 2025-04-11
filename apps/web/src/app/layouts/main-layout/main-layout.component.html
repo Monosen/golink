@@ -2,6 +2,9 @@
     <header class="relative z-30 bg-black">
         <div class="m-auto px-1 sm:px-3 md:px-5 lg:px-7 xl:w-7xl">
             <app-navbar></app-navbar>
+            @if(showSubNavbar){
+                <app-sub-navbar></app-sub-navbar>
+            }
         </div>
     </header>
 
