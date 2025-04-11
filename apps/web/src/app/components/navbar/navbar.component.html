@@ -6,20 +6,29 @@
             </a>
         </h4>
     </div>
-    <div class="flex items-center space-x-2 capitalize text-sm">
-        <ul class="flex space-x-2 text-sm">
-            <li><a routerLink="/">home</a></li>
-            <li><a routerLink="/dash">dash</a></li>
-        </ul>
-        <span>|</span>
-        <ul class="flex gap-1.5">
-            <app-link name="New link" routerLink="/auth" [queryParams]="{ mode: 'login' }" variant="tertiary">
-                <app-login-icon svgClass="size-4"></app-login-icon>
-            </app-link>
 
-            <app-link name="register" routerLink="/auth" [queryParams]="{ mode: 'register' }" variant="tertiary">
-                <app-register-icon svgClass="size-4"></app-register-icon>
-            </app-link>
-        </ul>
+    @if(authService.getIsLoggedIn()){
+    <div class="flex space-x-4">
+        <app-github-icon svgClass="size-6"></app-github-icon>
+        <app-moon-icon svgClass="size-5"></app-moon-icon>
+        <app-user-dropdown></app-user-dropdown>
     </div>
+    } @else if(!authService.getIsLoggedIn()) {
+        <div class="flex items-center space-x-2 capitalize text-sm">
+            <ul class="flex space-x-2 text-sm">
+                <li><a routerLink="/">home</a></li>
+                <li><a routerLink="/dash">dash</a></li>
+            </ul>
+            <span>|</span>
+            <ul class="flex gap-1.5">
+                <app-link name="login" routerLink="/auth" [queryParams]="{ mode: 'login' }" variant="tertiary">
+                    <app-login-icon svgClass="size-4"></app-login-icon>
+                </app-link>
+
+                <app-link name="register" routerLink="/auth" [queryParams]="{ mode: 'register' }" variant="tertiary">
+                    <app-register-icon svgClass="size-4"></app-register-icon>
+                </app-link>
+            </ul>
+        </div>
+    }
 </nav>
