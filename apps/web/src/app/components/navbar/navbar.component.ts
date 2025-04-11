@@ -4,7 +4,6 @@ import { LoginIconComponent } from '../../assets/icons/login-icon/login-icon.com
 import { RegisterIconComponent } from '../../assets/icons/register-icon/register-icon.component'
 import { LinkComponent } from '../ui/link/link.component'
 import { AuthService } from '../../pages/auth/auth.service'
-import { UserIconComponent } from '../../assets/icons/user-icon/user-icon.component'
 import { GithubIconComponent } from '../../assets/icons/github-icon/github-icon.component'
 import { MoonIconComponent } from '../../assets/icons/moon-icon/moon-icon.component'
 import { UserDropdownComponent } from '../user-dropdown/user-dropdown.component'
@@ -16,7 +15,6 @@ import { UserDropdownComponent } from '../user-dropdown/user-dropdown.component'
         LoginIconComponent,
         RegisterIconComponent,
         LinkComponent,
-        UserIconComponent,
         GithubIconComponent,
         MoonIconComponent,
         UserDropdownComponent
