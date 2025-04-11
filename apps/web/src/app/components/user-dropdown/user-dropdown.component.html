@@ -1,0 +1,14 @@
+<div class="relative flex justify-end">
+  <button (click)="toggleDropdown()" class="btn btn-primary cursor-pointer">
+    <app-user-icon></app-user-icon>
+    <span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"></span>
+  </button>
+  @if (showDropdown) {
+    <ul class="min-w-40 absolute z-40 bg-black mt-7 border-gray-600 border rounded-lg p-3 space-y-1 capitalize">
+      <li class="flex space-x-2 items-center"><app-user-icon></app-user-icon><a href="#">My Profile</a></li>
+      <li class="flex space-x-2 items-center"><app-setting-icon></app-setting-icon><a href="#">Settings</a></li>
+      <li class="flex space-x-2 items-center"><a href="#">Report a Bug</a></li>
+      <li class="flex space-x-2 items-center"><a href="#">Log Out</a></li>
+    </ul>
+  }
+</div>
