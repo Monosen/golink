@@ -40,7 +40,8 @@ export const routes: Routes = [
             {
                 path: 'callback',
                 title: 'auth-callback',
-                component: CallbackComponent
+                component: CallbackComponent,
+                canActivate: [noAuthGuard]
             }
         ]
     }
