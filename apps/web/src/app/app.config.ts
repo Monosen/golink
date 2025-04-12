@@ -17,15 +17,7 @@ export const authConfig: AuthConfig = {
     redirectUri: 'http://localhost:4200/auth/callback',
     scope: 'user:email read:user',
     responseType: 'code',
-    oidc: false,
-    skipIssuerCheck: true,
-    strictDiscoveryDocumentValidation: false,
-    requestAccessToken: true,
-    showDebugInformation: true,
-    disablePKCE: true,
-    loginUrl: 'https://github.com/login/oauth/authorize',
-    tokenEndpoint: 'http://localhost:3000/api/auth/github',
-    userinfoEndpoint: 'https://api.github.com/user'
+    loginUrl: 'https://github.com/login/oauth/authorize'
 }
 
 export const appConfig: ApplicationConfig = {

@@ -1,28 +1,13 @@
 import { inject, Injectable } from '@angular/core'
-import { BehaviorSubject, Observable, of } from 'rxjs'
+import { BehaviorSubject, lastValueFrom, Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { map, catchError, tap, shareReplay } from 'rxjs/operators'
 import { Router } from '@angular/router'
 
-export interface GithubUser {
-    login: string
-    id: number
-    avatar_url: string
-    name: string
-    email: string
-    bio: string
-    public_repos: number
-    followers: number
-    following: number
-}
-
 export interface LocalUser {
     id: string
-    username: string
     email: string
-    avatarUrl?: string
     name?: string
-    role: string
 }
 
 export interface LoginResponse {
@@ -30,15 +15,13 @@ export interface LoginResponse {
     token: string
 }
 
-export interface RegisterUserDto {
-    name: string
+export interface LoginUserDto {
     email: string
     password: string
 }
 
-export interface LoginUserDto {
-    email: string
-    password: string
+export interface RegisterUserDto extends LoginUserDto {
+    name: string
 }
 
 @Injectable({
@@ -56,33 +39,6 @@ export class AuthService {
         const savedUser = localStorage.getItem('user')
         if (savedUser) {
             this.userSubject.next(JSON.parse(savedUser))
-        }
-    }
-
-    async handleGithubUser(githubUser: GithubUser): Promise<void> {
-        try {
-            // Enviar los datos de GitHub a tu backend para crear/actualizar el usuario
-            const response = await this.http
-                .post<LoginResponse>('/api/auth/github-callback', {
-                    githubId: githubUser.id,
-                    email: githubUser.email,
-                    username: githubUser.login,
-                    name: githubUser.name,
-                    avatarUrl: githubUser.avatar_url,
-                    bio: githubUser.bio
-                })
-                .toPromise()
-
-            if (response && response.user && response.token) {
-                // Guardar el token JWT en localStorage
-                localStorage.setItem('auth_token', response.token)
-
-                // Actualizar el usuario en el estado
-                this.setUser(response.user)
-            }
-        } catch (error) {
-            console.error('Error al procesar usuario de GitHub:', error)
-            throw error
         }
     }
 
@@ -160,6 +116,27 @@ export class AuthService {
                     return of(false)
                 }),
                 shareReplay(1) // Comparte la última respuesta
+            )
+    }
+
+    exchangeCodeForToken(code: string) {
+        return this.http
+            .post<LoginResponse>(`${this.apiUrl}/auth/github`, { code })
+            .pipe(
+                tap((response: LoginResponse) => {
+                    if (response && response.token) {
+                        // Guardar el token y el usuario en el cliente
+                        localStorage.setItem('auth_token', response.token)
+                        this.setUser(response.user)
+                    }
+                }),
+                catchError((error) => {
+                    console.error(
+                        'Error al intercambiar el código por un token:',
+                        error
+                    )
+                    throw error
+                })
             )
     }
 }
