@@ -15,6 +15,13 @@ async function bootstrap() {
         })
     )
 
+    // Configurar CORS
+    app.enableCors({
+        origin: 'http://localhost:4200', // URL de tu aplicación Angular
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+        credentials: true
+    })
+
     await app.listen(process.env.PORT ?? 3000)
     logger.log(`App running on port ${process.env.PORT ?? 3000}`)
 }
