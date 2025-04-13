@@ -20,14 +20,14 @@
             </div>
 
             <!-- Modal Content -->
-            <div class="mt-6 space-y-4">
+            <form [formGroup]="createNewLinkForm" (ngSubmit)="onSubmit()" novalidate class="mt-6 space-y-4">
                 <label class="text-lg text-gray-600">Destination URL:</label>
-                <input type="text" class="border border-gray-300 rounded-lg px-4 py-2 w-full"
+                <input formControlName="longUrl" type="text" class="border border-gray-300 rounded-lg px-4 py-2 w-full"
                     placeholder="https://example.com">
                 <label class="text-lg text-gray-600">Short link:</label>
                 <div class="flex">
-                    <input type="text" class="border border-gray-300 rounded-lg px-4 py-2 w-full"
-                        placeholder="https://example.com">
+                    <input formControlName="shortCode" type="text"
+                        class="border border-gray-300 rounded-lg px-4 py-2 w-full" placeholder="code">
                     <div class="flex items-center space-x-2">
                         <app-shuffle-icon></app-shuffle-icon>
                         <p>randomize</p>
@@ -36,12 +36,10 @@
                 <label class="text-lg text-gray-600">Description (optional):</label>
                 <textarea class="border border-gray-300 rounded-lg px-4 py-2 w-full"
                     placeholder="Description"></textarea>
-            </div>
 
-            <!-- Additional Information -->
-            <div class="mt-6 text-sm text-gray-500">
-                <p>Create a new project from scratch or import an existing project from your GitHub repository.</p>
-            </div>
+                <app-button class="justify-self-center" type="submit" name="create">
+                </app-button>
+            </form>
         </div>
     </div>
 </div>
