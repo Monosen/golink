@@ -3,6 +3,7 @@ import { BehaviorSubject, lastValueFrom, Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { map, catchError, tap, shareReplay } from 'rxjs/operators'
 import { Router } from '@angular/router'
+import { environment } from '../../../environments/environment.development'
 
 export interface LocalUser {
     id: string
@@ -30,7 +31,7 @@ export interface RegisterUserDto extends LoginUserDto {
 export class AuthService {
     private userSubject = new BehaviorSubject<LocalUser | null>(null)
     public user$ = this.userSubject.asObservable()
-    private apiUrl = 'http://localhost:3000/api' // Adjust this URL to match your API endpoint
+    private apiUrl = environment.apiUrl // Adjust this URL to match your API endpoint
     private isLoggedIn = false // Simula el estado de inicio de sesión
     private router = inject(Router)
 
