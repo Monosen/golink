@@ -32,16 +32,24 @@ export class ShortUrlService {
     }
 
     // Obtener todas las URLs cortas
-    async findAll() {
-        const shortUrls = await this.prismaService.shortUrl.findMany()
+    async findAll(user: User) {
+        const shortUrls = await this.prismaService.shortUrl.findMany({
+            where: { userId: user.id },
+            select: {
+                id: true,
+                shortCode: true,
+                longUrl: true,
+                createdAt: true
+            }
+        })
 
         return shortUrls
     }
 
     // Obtener una URL corta por su ID
-    async findOne(id: number) {
+    async findOne(id: number, user: User) {
         const shortUrl = await this.prismaService.shortUrl.findUnique({
-            where: { id }
+            where: { id, userId: user.id }
         })
 
         if (!shortUrl) {
@@ -52,9 +60,9 @@ export class ShortUrlService {
     }
 
     // Actualizar una URL corta por su ID
-    async update(id: number, updateShortUrlDto: UpdateShortUrlDto) {
+    async update(id: number, updateShortUrlDto: UpdateShortUrlDto, user: User) {
         const shortUrl = await this.prismaService.shortUrl.findUnique({
-            where: { id }
+            where: { id, userId: user.id }
         })
 
         if (!shortUrl) {
@@ -71,9 +79,9 @@ export class ShortUrlService {
     }
 
     // Eliminar una URL corta por su ID
-    async remove(id: number) {
+    async remove(id: number, user: User) {
         const shortUrl = await this.prismaService.shortUrl.findUnique({
-            where: { id }
+            where: { id, userId: user.id }
         })
 
         if (!shortUrl) {

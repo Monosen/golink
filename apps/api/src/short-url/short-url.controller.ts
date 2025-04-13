@@ -30,28 +30,29 @@ export class ShortUrlController {
 
     @Get('all')
     @UseGuards(AuthGuard())
-    findAll() {
-        return this.shortUrlService.findAll()
+    findAll(@GetUser() user: User) {
+        return this.shortUrlService.findAll(user)
     }
 
     @Get('one/:id')
     @UseGuards(AuthGuard())
-    findOne(@Param('id') id: string) {
-        return this.shortUrlService.findOne(+id)
+    findOne(@Param('id') id: string, @GetUser() user: User) {
+        return this.shortUrlService.findOne(+id, user)
     }
 
     @Patch('update/:id')
     @UseGuards(AuthGuard())
     update(
         @Param('id') id: string,
-        @Body() updateShortUrlDto: UpdateShortUrlDto
+        @Body() updateShortUrlDto: UpdateShortUrlDto,
+        @GetUser() user: User
     ) {
-        return this.shortUrlService.update(+id, updateShortUrlDto)
+        return this.shortUrlService.update(+id, updateShortUrlDto, user)
     }
 
     @Delete('remove/:id')
     @UseGuards(AuthGuard())
-    remove(@Param('id') id: string) {
-        return this.shortUrlService.remove(+id)
+    remove(@Param('id') id: string, @GetUser() user: User) {
+        return this.shortUrlService.remove(+id, user)
     }
 }

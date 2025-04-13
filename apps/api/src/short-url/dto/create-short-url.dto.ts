@@ -1,8 +1,10 @@
-import { IsAlphanumeric, IsString } from 'class-validator'
+import { IsString, Matches } from 'class-validator'
 
 export class CreateShortUrlDto {
     @IsString()
-    @IsAlphanumeric()
+    @Matches(/^[a-zA-Z0-9]+$/, {
+        message: 'shortCode must contain only alphanumeric characters'
+    })
     shortCode: string
 
     @IsString()
