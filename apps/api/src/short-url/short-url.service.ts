@@ -92,4 +92,17 @@ export class ShortUrlService {
             where: { id }
         })
     }
+
+    // Redirigir a la URL larga
+    async redirect(shortUrl: string) {
+        const shortUrlData = await this.prismaService.shortUrl.findUnique({
+            where: { shortCode: shortUrl }
+        })
+
+        if (!shortUrlData) {
+            throw new NotFoundException(`Short URL ${shortUrl} not found`)
+        }
+
+        return shortUrlData.longUrl
+    }
 }

@@ -55,4 +55,9 @@ export class ShortUrlController {
     remove(@Param('id') id: string, @GetUser() user: User) {
         return this.shortUrlService.remove(+id, user)
     }
+
+    @Get(':shortUrl')
+    redirect(@Param('shortUrl') shortUrl: string) {
+        return this.shortUrlService.redirect(shortUrl)
+    }
 }
