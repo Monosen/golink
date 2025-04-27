@@ -33,4 +33,10 @@ model ShortUrl {
   updatedAt DateTime @updatedAt
   userId    Int?
   user      User?    @relation(fields: [userId], references: [id])
+
+  startDate DateTime?
+  endDate   DateTime?
+
+  clickCount Int  @default(0)
+  clickLimit Int?
 }
