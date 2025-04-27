@@ -7,13 +7,14 @@ import { CallbackComponent } from './pages/auth/callback/callback.component'
 import { noAuthGuard } from './guards/auth/no-auth.guard'
 import { authGuard } from './guards/auth/auth.guard'
 import { SettingsComponent } from './pages/dash/settings/settings.component'
+import { shortUrlGuard } from './guards/short-url.guard'
+import { RedirectComponent } from './pages/redirect/redirect.component'
 
 export const routes: Routes = [
     {
         path: '',
         title: 'home',
-        component: HomeComponent,
-        canActivate: [noAuthGuard]
+        component: HomeComponent
     },
     {
         path: 'dash',
@@ -44,5 +45,11 @@ export const routes: Routes = [
                 canActivate: [noAuthGuard]
             }
         ]
+    },
+    {
+        path: ':code',
+        title: 'redirect',
+        component: RedirectComponent,
+        canActivate: [shortUrlGuard]
     }
 ]

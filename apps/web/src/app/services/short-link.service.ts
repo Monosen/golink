@@ -8,6 +8,7 @@ export interface ShortUrl {
     id: number
     shortCode: string
     longUrl: string
+    clickCount: number
     createdAt: string
 }
 
@@ -80,5 +81,10 @@ export class ShortLinkService {
                     this.shortUrlsSubject.next(updatedShortUrls)
                 })
             )
+    }
+
+    // Obtener la URL larga a partir del código corto
+    getLongUrl(shortCode: string): Observable<{ longUrl: string }> {
+        return this.http.get<{ longUrl: string }>(`${this.apiUrl}/${shortCode}`)
     }
 }
