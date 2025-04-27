@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs'
 @Injectable({
     providedIn: 'root'
 })
-export class ModalService {
+export class CreateLinkService {
     private modalState = new BehaviorSubject<boolean>(false)
     modalState$ = this.modalState.asObservable()
 

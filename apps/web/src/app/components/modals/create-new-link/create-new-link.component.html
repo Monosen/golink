@@ -22,21 +22,32 @@
             <!-- Modal Content -->
             <form [formGroup]="createNewLinkForm" (ngSubmit)="onSubmit()" novalidate class="mt-6 space-y-4">
                 <label class="text-lg text-gray-600">Destination URL:</label>
-                <input formControlName="longUrl" type="text" class="border border-gray-300 rounded-lg px-4 py-2 w-full"
-                    placeholder="https://example.com">
+                <app-input formControlName="longUrl" placeholder="https://example.com" type="text"></app-input>
                 <label class="text-lg text-gray-600">Short link:</label>
                 <div class="flex">
-                    <input formControlName="shortCode" type="text"
-                        class="border border-gray-300 rounded-lg px-4 py-2 w-full" placeholder="code">
-                    <div class="flex items-center space-x-2">
-                        <app-shuffle-icon></app-shuffle-icon>
-                        <p>randomize</p>
-                    </div>
+                    <app-input formControlName="shortCode" placeholder="code" type="text"></app-input>
+                    <app-link variant="secondary" class="rounded"
+                        name="randomize"><app-shuffle-icon></app-shuffle-icon></app-link>
                 </div>
+                <div>
+                    <label class="text-lg text-gray-600">Temporal:</label>
+                    <div class="flex space-x-1">
+                        <button>custom</button>
+                        <button>none</button>
+                    </div>
+                    <div>
+                        <label class="text-lg text-gray-600">Start:</label>
+                        <input class="border" type="date">
+                        <label class="text-lg text-gray-600">End:</label>
+                        <input class="border" type="date">
+                    </div>
+
+
+                </div>
+                <label class="text-lg text-gray-600">Clicks:</label>
                 <label class="text-lg text-gray-600">Description (optional):</label>
                 <textarea class="border border-gray-300 rounded-lg px-4 py-2 w-full"
                     placeholder="Description"></textarea>
-
                 <app-button class="justify-self-center" type="submit" name="create">
                 </app-button>
             </form>

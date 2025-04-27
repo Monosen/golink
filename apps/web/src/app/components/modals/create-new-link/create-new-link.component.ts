@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { ShuffleIconComponent } from '../../../assets/icons/shuffle-icon/shuffle-icon.component'
-import { ModalService } from '../../../services/modal.service'
+import { CreateLinkService } from '../../../services/modals/create-link.service'
 import {
     FormBuilder,
     FormGroup,
@@ -12,10 +12,18 @@ import {
     ShortLinkService
 } from '../../../services/short-link.service'
 import { ButtonComponent } from '../../ui/button/button.component'
+import { LinkComponent } from '../../ui/link/link.component'
+import { InputComponent } from '../../ui/input/input.component'
 
 @Component({
     selector: 'app-create-new-link',
-    imports: [ShuffleIconComponent, ButtonComponent, ReactiveFormsModule],
+    imports: [
+        ShuffleIconComponent,
+        ButtonComponent,
+        ReactiveFormsModule,
+        LinkComponent,
+        InputComponent
+    ],
     templateUrl: './create-new-link.component.html'
 })
 export class CreateNewLinkComponent {
@@ -24,7 +32,7 @@ export class CreateNewLinkComponent {
     isLoading: boolean = false
 
     constructor(
-        private modalService: ModalService,
+        private createLinkService: CreateLinkService,
         private fb: FormBuilder,
         private readonly shortLinkService: ShortLinkService
     ) {
@@ -38,7 +46,7 @@ export class CreateNewLinkComponent {
     }
 
     closeModal(): void {
-        this.modalService.closeModal()
+        this.createLinkService.closeModal()
     }
 
     onSubmit() {

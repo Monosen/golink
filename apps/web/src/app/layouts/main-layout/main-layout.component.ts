@@ -10,8 +10,9 @@ import { FooterComponent } from '../../components/footer/footer.component'
 import { SubNavbarComponent } from '../../components/sub-navbar/sub-navbar.component'
 import { filter, Subscription } from 'rxjs'
 import { NavigationEnd, Router } from '@angular/router'
-import { ModalService } from '../../services/modal.service'
+import { CreateLinkService } from '../../services/modals/create-link.service'
 import { CreateNewLinkComponent } from '../../components/modals/create-new-link/create-new-link.component'
+import { SettingLinkService } from '../../services/modals/setting-link.service'
 
 @Component({
     selector: 'app-main-layout',
@@ -26,14 +27,19 @@ import { CreateNewLinkComponent } from '../../components/modals/create-new-link/
 export class MainLayoutComponent implements OnInit, OnDestroy {
     showSubNavbar: boolean = false
     routerSubscription: Subscription | undefined
-    showModal: boolean = false
+    showCreateLinkModal: boolean = false
+    showSettingLinkModal: boolean = false
 
     constructor(
         private router: Router,
-        private modalService: ModalService
+        private createLinkService: CreateLinkService,
+        private settingLinkService: SettingLinkService
     ) {
-        this.modalService.modalState$.subscribe((state: boolean) => {
-            this.showModal = state
+        this.createLinkService.modalState$.subscribe((state: boolean) => {
+            this.showCreateLinkModal = state
+        })
+        this.settingLinkService.modalState$.subscribe((state: boolean) => {
+            this.showSettingLinkModal = state
         })
     }
 
