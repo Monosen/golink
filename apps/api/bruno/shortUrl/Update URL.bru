@@ -1,0 +1,22 @@
+meta {
+  name: Update URL
+  type: http
+  seq: 7
+}
+
+put {
+  url: {{baseUrl}}/short-url/update/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "originalUrl": "https://nuevo-ejemplo.com",
+    "customSlug": "nuevo-ejemplo"
+  }
+}

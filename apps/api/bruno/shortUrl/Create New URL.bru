@@ -1,0 +1,22 @@
+meta {
+  name: Create New URL
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/short-url/create
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "originalUrl": "https://ejemplo.com",
+    "customSlug": "ejemplo"
+  }
+}

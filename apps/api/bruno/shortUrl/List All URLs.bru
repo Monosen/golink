@@ -1,0 +1,15 @@
+meta {
+  name: List All URLs
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/short-url/all
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
