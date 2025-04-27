@@ -1,18 +1,23 @@
-<div class="w-96 border-white border rounded-lg p-2 space-y-2">
+<div class="min-w-56 max-w-96 border-white border rounded-lg p-2 space-y-2">
     <div class="flex justify-between">
-        <p>{{ shortCode }}</p>
+        <p>/{{ shortCode }}</p>
         <div class="flex items-center space-x-2">
             <p>{{ clicks }} clicks</p>
             <span>|</span>
             <div class="flex space-x-2">
-                <app-copy-icon></app-copy-icon>
+                @if (isCopied) {
+                <app-check-icon class="transition-opacity duration-500 opacity-100"></app-check-icon>
+                } @else {
+                <app-copy-icon class="transition-opacity duration-500 opacity-100"
+                    (click)="copyToClipboard()"></app-copy-icon>
+                }
                 <app-setting-icon></app-setting-icon>
                 <app-trash-icon (click)="removeShortUrl()"></app-trash-icon>
             </div>
         </div>
     </div>
-    <p>{{ fullUrl }}</p>
+    <p>{{ getFullUrl() }}</p>
     <div class="flex justify-end">
-        <p>{{ date }}</p>
+        <p>{{ getFormattedDate() }}</p>
     </div>
 </div>
