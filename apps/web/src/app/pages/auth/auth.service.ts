@@ -40,6 +40,7 @@ export class AuthService {
         const savedUser = localStorage.getItem('user')
         if (savedUser) {
             this.userSubject.next(JSON.parse(savedUser))
+            this.isLoggedIn = true
         }
     }
 
@@ -49,6 +50,7 @@ export class AuthService {
             .pipe(
                 tap((response: LoginResponse) => {
                     if (response && response.token) {
+                        this.isLoggedIn = true
                         localStorage.setItem('auth_token', response.token)
                         this.setUser(response.user)
                     }
@@ -62,6 +64,7 @@ export class AuthService {
             .pipe(
                 tap((response: LoginResponse) => {
                     if (response && response.token) {
+                        this.isLoggedIn = true
                         localStorage.setItem('auth_token', response.token)
                         this.setUser(response.user)
                     }
@@ -85,6 +88,7 @@ export class AuthService {
     logout() {
         localStorage.removeItem('user')
         localStorage.removeItem('auth_token')
+        this.isLoggedIn = false
         this.userSubject.next(null)
         this.router.navigate(['/'])
     }
@@ -126,6 +130,7 @@ export class AuthService {
             .pipe(
                 tap((response: LoginResponse) => {
                     if (response && response.token) {
+                        this.isLoggedIn = true
                         // Guardar el token y el usuario en el cliente
                         localStorage.setItem('auth_token', response.token)
                         this.setUser(response.user)
