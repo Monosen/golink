@@ -4,6 +4,7 @@ import { UserModule } from './user/user.module'
 import { AuthModule } from './auth/auth.module'
 import { ConfigModule } from '@nestjs/config'
 import { ShortUrlModule } from './short-url/short-url.module'
+import { CacheModule } from '@nestjs/cache-manager'
 
 @Module({
     imports: [
@@ -11,7 +12,11 @@ import { ShortUrlModule } from './short-url/short-url.module'
         PrismaModule,
         UserModule,
         AuthModule,
-        ShortUrlModule
+        ShortUrlModule,
+        CacheModule.register({
+            isGlobal: true,
+            ttl: 3600000 // 1 hora por defecto
+        })
     ],
     controllers: [],
     providers: []

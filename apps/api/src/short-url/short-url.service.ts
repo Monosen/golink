@@ -1,12 +1,17 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable, NotFoundException, Inject } from '@nestjs/common'
+import { CACHE_MANAGER } from '@nestjs/cache-manager'
 import { CreateShortUrlDto } from './dto/create-short-url.dto'
 import { UpdateShortUrlDto } from './dto/update-short-url.dto'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { User } from '@prisma/client'
+import { Cache } from 'cache-manager'
 
 @Injectable()
 export class ShortUrlService {
-    constructor(private readonly prismaService: PrismaService) {}
+    constructor(
+        private readonly prismaService: PrismaService,
+        @Inject(CACHE_MANAGER) private cacheManager: Cache
+    ) {}
 
     // Crear una nueva URL corta
     async create(createShortUrlDto: CreateShortUrlDto, user: User) {
@@ -39,6 +44,7 @@ export class ShortUrlService {
                 id: true,
                 shortCode: true,
                 longUrl: true,
+                clickCount: true,
                 createdAt: true
             }
         })
@@ -95,14 +101,47 @@ export class ShortUrlService {
 
     // Redirigir a la URL larga
     async redirect(shortUrl: string) {
+        // Intentar obtener la URL del caché primero
+        const cachedUrl = await this.cacheManager.get<string>(`url:${shortUrl}`)
+        if (cachedUrl) {
+            // Actualizar el contador de clicks de manera asíncrona
+            this.incrementClickCount(shortUrl).catch(console.error)
+            return { longUrl: cachedUrl }
+        }
+
+        // Si no está en caché, buscar en la base de datos
         const shortUrlData = await this.prismaService.shortUrl.findUnique({
-            where: { shortCode: shortUrl }
+            where: { shortCode: shortUrl },
+            select: { longUrl: true } // Solo seleccionar el campo necesario
         })
 
         if (!shortUrlData) {
             throw new NotFoundException(`Short URL ${shortUrl} not found`)
         }
 
-        return shortUrlData.longUrl
+        // Guardar en caché para futuras solicitudes
+        await this.cacheManager.set(
+            `url:${shortUrl}`,
+            shortUrlData.longUrl,
+            3600000
+        ) // 1 hora de caché
+
+        // Actualizar el contador de clicks de manera asíncrona
+        this.incrementClickCount(shortUrl).catch(console.error)
+
+        return {
+            longUrl: shortUrlData.longUrl
+        }
+    }
+
+    private async incrementClickCount(shortUrl: string): Promise<void> {
+        await this.prismaService.shortUrl.update({
+            where: { shortCode: shortUrl },
+            data: {
+                clickCount: {
+                    increment: 1
+                }
+            }
+        })
     }
 }
