@@ -59,6 +59,12 @@ export class ShortUrlController {
         return this.shortUrlService.remove(+id, user)
     }
 
+    @Get('random')
+    @UseGuards(AuthGuard())
+    generateRandomCode() {
+        return this.shortUrlService.generateRandomCode()
+    }
+
     @Get(':shortUrl')
     redirect(@Param('shortUrl') shortUrl: string) {
         return this.shortUrlService.redirect(shortUrl)

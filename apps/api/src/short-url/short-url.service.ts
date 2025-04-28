@@ -13,7 +13,6 @@ export class ShortUrlService {
         @Inject(CACHE_MANAGER) private cacheManager: Cache
     ) {}
 
-    // Crear una nueva URL corta
     async create(createShortUrlDto: CreateShortUrlDto, user: User) {
         try {
             const shortUrl = await this.prismaService.shortUrl.create({
@@ -36,7 +35,6 @@ export class ShortUrlService {
         }
     }
 
-    // Obtener todas las URLs cortas
     async findAll(user: User) {
         const shortUrls = await this.prismaService.shortUrl.findMany({
             where: { userId: user.id },
@@ -52,20 +50,25 @@ export class ShortUrlService {
         return shortUrls
     }
 
-    // Obtener una URL corta por su ID
     async findOne(id: number, user: User) {
-        const shortUrl = await this.prismaService.shortUrl.findUnique({
-            where: { id, userId: user.id }
-        })
+        try {
+            const shortUrl = await this.prismaService.shortUrl.findUnique({
+                where: { id, userId: user.id }
+            })
 
-        if (!shortUrl) {
+            if (!shortUrl) {
+                throw new NotFoundException(`Short URL with ID ${id} not found`)
+            }
+
+            return shortUrl
+        } catch (error) {
+            console.error(
+                `Error finding short URL with ID ${id}: ${error.message}`
+            )
             throw new NotFoundException(`Short URL with ID ${id} not found`)
         }
-
-        return shortUrl
     }
 
-    // Actualizar una URL corta por su ID
     async update(id: number, updateShortUrlDto: UpdateShortUrlDto, user: User) {
         const shortUrl = await this.prismaService.shortUrl.findUnique({
             where: { id, userId: user.id }
@@ -84,7 +87,6 @@ export class ShortUrlService {
         })
     }
 
-    // Eliminar una URL corta por su ID
     async remove(id: number, user: User) {
         const shortUrl = await this.prismaService.shortUrl.findUnique({
             where: { id, userId: user.id }
@@ -99,7 +101,6 @@ export class ShortUrlService {
         })
     }
 
-    // Redirigir a la URL larga
     async redirect(shortUrl: string) {
         // Intentar obtener la URL del caché primero
         const cachedUrl = await this.cacheManager.get<string>(`url:${shortUrl}`)
@@ -143,5 +144,47 @@ export class ShortUrlService {
                 }
             }
         })
+    }
+
+    async generateRandomCode(): Promise<{ randomCode: string }> {
+        try {
+            const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            const lowercase = 'abcdefghijklmnopqrstuvwxyz'
+            const numbers = '0123456789'
+            const allChars = uppercase + lowercase + numbers
+
+            // Asegurar al menos una mayúscula, una minúscula y un número
+            let randomCode = ''
+            randomCode +=
+                uppercase[Math.floor(Math.random() * uppercase.length)]
+            randomCode +=
+                lowercase[Math.floor(Math.random() * lowercase.length)]
+            randomCode += numbers[Math.floor(Math.random() * numbers.length)]
+
+            // Completar el resto del código
+            for (let i = 3; i < 6; i++) {
+                const randomIndex = Math.floor(Math.random() * allChars.length)
+                randomCode += allChars[randomIndex]
+            }
+
+            // Mezclar el código
+            randomCode = randomCode
+                .split('')
+                .sort(() => Math.random() - 0.5)
+                .join('')
+
+            const existingUrl = await this.prismaService.shortUrl.findUnique({
+                where: { shortCode: randomCode }
+            })
+
+            if (existingUrl) {
+                return this.generateRandomCode()
+            }
+
+            return { randomCode }
+        } catch (error) {
+            console.error('Error generating random code:', error)
+            throw new Error('Error generating random code')
+        }
     }
 }
