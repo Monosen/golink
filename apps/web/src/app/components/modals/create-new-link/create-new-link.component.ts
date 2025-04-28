@@ -46,12 +46,12 @@ export class CreateNewLinkComponent {
                 '',
                 [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]
             ],
-            startDate: [''],
-            startTime: [''],
-            endDate: [''],
-            endTime: [''],
+            startDate: [null],
+            startTime: [null],
+            endDate: [null],
+            endTime: [null],
             clickLimit: [
-                '',
+                null,
                 [Validators.min(1), Validators.pattern('^[0-9]*$')]
             ]
         })
@@ -61,8 +61,10 @@ export class CreateNewLinkComponent {
         this.isCustomDate = type === 'custom'
         if (!this.isCustomDate) {
             this.createNewLinkForm.patchValue({
-                startDate: '',
-                endDate: ''
+                startDate: null,
+                startTime: null,
+                endDate: null,
+                endTime: null
             })
         }
     }
@@ -71,7 +73,7 @@ export class CreateNewLinkComponent {
         this.isCustomClick = type === 'custom'
         if (!this.isCustomClick) {
             this.createNewLinkForm.patchValue({
-                clickLimit: ''
+                clickLimit: null
             })
         }
     }
@@ -88,7 +90,20 @@ export class CreateNewLinkComponent {
         this.isLoading = true
         this.errorMessage = ''
 
-        const createShortUrl: CreateShortUrlDto = this.createNewLinkForm.value
+        const formValue = this.createNewLinkForm.value
+        const createShortUrl: CreateShortUrlDto = {
+            longUrl: formValue.longUrl,
+            shortCode: formValue.shortCode,
+            startDate:
+                formValue.startDate && formValue.startTime
+                    ? new Date(`${formValue.startDate}T${formValue.startTime}`)
+                    : null,
+            endDate:
+                formValue.endDate && formValue.endTime
+                    ? new Date(`${formValue.endDate}T${formValue.endTime}`)
+                    : null,
+            clickLimit: formValue.clickLimit || null
+        }
 
         this.shortLinkService.createShortUrl(createShortUrl).subscribe({
             next: () => {

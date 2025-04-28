@@ -13,8 +13,11 @@ export interface ShortUrl {
 }
 
 export interface CreateShortUrlDto {
-    shortCode: string
     longUrl: string
+    shortCode: string
+    startDate?: Date | null
+    endDate?: Date | null
+    clickLimit?: number | null
 }
 
 export interface UpdateShortUrlDto {
