@@ -19,7 +19,8 @@ export class ShortUrlService {
                 data: {
                     shortCode: createShortUrlDto.shortCode,
                     longUrl: createShortUrlDto.longUrl,
-                    userId: user.id
+                    userId: user.id,
+                    clickLimit: createShortUrlDto.clickLimit
                 },
                 select: {
                     id: true,
@@ -104,20 +105,33 @@ export class ShortUrlService {
     async redirect(shortUrl: string) {
         // Intentar obtener la URL del caché primero
         const cachedUrl = await this.cacheManager.get<string>(`url:${shortUrl}`)
-        if (cachedUrl) {
-            // Actualizar el contador de clicks de manera asíncrona
-            this.incrementClickCount(shortUrl).catch(console.error)
-            return { longUrl: cachedUrl }
-        }
 
-        // Si no está en caché, buscar en la base de datos
+        // Buscar en la base de datos para verificar el límite de clics
         const shortUrlData = await this.prismaService.shortUrl.findUnique({
             where: { shortCode: shortUrl },
-            select: { longUrl: true } // Solo seleccionar el campo necesario
+            select: {
+                longUrl: true,
+                clickCount: true,
+                clickLimit: true
+            }
         })
 
         if (!shortUrlData) {
             throw new NotFoundException(`Short URL ${shortUrl} not found`)
+        }
+
+        // Verificar si se ha alcanzado el límite de clics
+        if (
+            shortUrlData.clickLimit &&
+            shortUrlData.clickCount >= shortUrlData.clickLimit
+        ) {
+            throw new NotFoundException('Click limit reached for this URL')
+        }
+
+        // Si está en caché, actualizar contador y retornar
+        if (cachedUrl) {
+            this.incrementClickCount(shortUrl).catch(console.error)
+            return { longUrl: cachedUrl }
         }
 
         // Guardar en caché para futuras solicitudes
