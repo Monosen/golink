@@ -1,0 +1,15 @@
+meta {
+  name: Get Random Code
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/short-url/random
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
