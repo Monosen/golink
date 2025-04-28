@@ -14,15 +14,18 @@ import {
 import { ButtonComponent } from '../../ui/button/button.component'
 import { LinkComponent } from '../../ui/link/link.component'
 import { InputComponent } from '../../ui/input/input.component'
+import { TimePickerComponent } from '../../ui/time-picker/time-picker.component'
 
 @Component({
     selector: 'app-create-new-link',
+    standalone: true,
     imports: [
         ShuffleIconComponent,
         ButtonComponent,
         ReactiveFormsModule,
         LinkComponent,
-        InputComponent
+        InputComponent,
+        TimePickerComponent
     ],
     templateUrl: './create-new-link.component.html'
 })
@@ -30,6 +33,8 @@ export class CreateNewLinkComponent {
     createNewLinkForm: FormGroup
     errorMessage: string = ''
     isLoading: boolean = false
+    isCustomDate: boolean = false
+    isCustomClick: boolean = false
 
     constructor(
         private createLinkService: CreateLinkService,
@@ -41,8 +46,35 @@ export class CreateNewLinkComponent {
             shortCode: [
                 '',
                 [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]
+            ],
+            startDate: [''],
+            startTime: [''],
+            endDate: [''],
+            endTime: [''],
+            clickLimit: [
+                '',
+                [Validators.min(1), Validators.pattern('^[0-9]*$')]
             ]
         })
+    }
+
+    toggleDateType(type: 'custom' | 'none') {
+        this.isCustomDate = type === 'custom'
+        if (!this.isCustomDate) {
+            this.createNewLinkForm.patchValue({
+                startDate: '',
+                endDate: ''
+            })
+        }
+    }
+
+    toggleClickType(type: 'custom' | 'none') {
+        this.isCustomClick = type === 'custom'
+        if (!this.isCustomClick) {
+            this.createNewLinkForm.patchValue({
+                clickLimit: ''
+            })
+        }
     }
 
     closeModal(): void {
