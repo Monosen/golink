@@ -23,7 +23,6 @@ import { TimePickerComponent } from '../../ui/time-picker/time-picker.component'
         ShuffleIconComponent,
         ButtonComponent,
         ReactiveFormsModule,
-        LinkComponent,
         InputComponent,
         TimePickerComponent
     ],
@@ -105,6 +104,17 @@ export class CreateNewLinkComponent {
                 this.errorMessage =
                     error.error?.message ||
                     'Registration failed. Please try again.'
+            }
+        })
+    }
+
+    getRandomCode() {
+        this.shortLinkService.getRandomCode().subscribe({
+            next: ({ randomCode }: { randomCode: string }) => {
+                this.createNewLinkForm.patchValue({ shortCode: randomCode })
+            },
+            error: (err) => {
+                console.error('Failed to fetch random code:', err)
             }
         })
     }

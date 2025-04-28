@@ -87,4 +87,12 @@ export class ShortLinkService {
     getLongUrl(shortCode: string): Observable<{ longUrl: string }> {
         return this.http.get<{ longUrl: string }>(`${this.apiUrl}/${shortCode}`)
     }
+
+    getRandomCode(): Observable<{ randomCode: string }> {
+        return this.http.get<{ randomCode: string }>(`${this.apiUrl}/random`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+            }
+        })
+    }
 }
