@@ -2,7 +2,13 @@
     <div class="flex justify-between">
         <p>/{{ shortCode }}</p>
         <div class="flex items-center space-x-2">
-            <p>{{ clicks }} clicks</p>
+            <p>
+                @if (clickLimit) {
+                {{ clicks }} / {{clickLimit}} clicks
+                } @else {
+                {{ clicks }} clicks
+                }
+            </p>
             <span>|</span>
             <div class="flex space-x-2">
                 @if (isCopied) {

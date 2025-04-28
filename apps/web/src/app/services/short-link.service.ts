@@ -9,6 +9,7 @@ export interface ShortUrl {
     shortCode: string
     longUrl: string
     clickCount: number
+    clickLimit: number | null
     createdAt: string
 }
 

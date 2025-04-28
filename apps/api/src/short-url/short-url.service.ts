@@ -44,7 +44,8 @@ export class ShortUrlService {
                 shortCode: true,
                 longUrl: true,
                 clickCount: true,
-                createdAt: true
+                createdAt: true,
+                clickLimit: true
             }
         })
 

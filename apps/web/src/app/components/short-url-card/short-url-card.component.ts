@@ -22,6 +22,7 @@ export class ShortUrlCardComponent {
     @Input() clicks: number = 0
     @Input() fullUrl: string = ''
     @Input() date: string = ''
+    @Input() clickLimit: number | null = null
 
     isCopied: boolean = false // Nueva propiedad para rastrear el estado del ícono
     baseUrl: string = '' // Propiedad para almacenar la URL base
