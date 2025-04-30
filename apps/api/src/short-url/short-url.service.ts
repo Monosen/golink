@@ -15,6 +15,36 @@ export class ShortUrlService {
 
     async create(createShortUrlDto: CreateShortUrlDto, user: User) {
         try {
+            // Validar que startDate no sea en el pasado
+            if (
+                createShortUrlDto.startDate &&
+                new Date(createShortUrlDto.startDate) < new Date()
+            ) {
+                throw new Error('La fecha de inicio no puede ser en el pasado')
+            }
+
+            // Validar que endDate no sea en el pasado
+            if (
+                createShortUrlDto.endDate &&
+                new Date(createShortUrlDto.endDate) < new Date()
+            ) {
+                throw new Error(
+                    'La fecha de expiración no puede ser en el pasado'
+                )
+            }
+
+            // Validar que endDate sea posterior a startDate
+            if (createShortUrlDto.startDate && createShortUrlDto.endDate) {
+                if (
+                    new Date(createShortUrlDto.endDate) <=
+                    new Date(createShortUrlDto.startDate)
+                ) {
+                    throw new Error(
+                        'La fecha de expiración debe ser posterior a la fecha de inicio'
+                    )
+                }
+            }
+
             const shortUrl = await this.prismaService.shortUrl.create({
                 data: {
                     shortCode: createShortUrlDto.shortCode,
@@ -35,8 +65,8 @@ export class ShortUrlService {
             })
 
             return shortUrl
-        } catch {
-            throw new Error('Error creating short URL')
+        } catch (error) {
+            throw new Error(error.message || 'Error creating short URL')
         }
     }
 
