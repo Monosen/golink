@@ -20,13 +20,17 @@ export class ShortUrlService {
                     shortCode: createShortUrlDto.shortCode,
                     longUrl: createShortUrlDto.longUrl,
                     userId: user.id,
-                    clickLimit: createShortUrlDto.clickLimit
+                    clickLimit: createShortUrlDto.clickLimit,
+                    startDate: createShortUrlDto.startDate,
+                    endDate: createShortUrlDto.endDate
                 },
                 select: {
                     id: true,
                     shortCode: true,
                     longUrl: true,
-                    createdAt: true
+                    createdAt: true,
+                    startDate: true,
+                    endDate: true
                 }
             })
 
@@ -45,7 +49,9 @@ export class ShortUrlService {
                 longUrl: true,
                 clickCount: true,
                 createdAt: true,
-                clickLimit: true
+                clickLimit: true,
+                startDate: true,
+                endDate: true
             }
         })
 
