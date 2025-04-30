@@ -76,6 +76,40 @@ export class NewLinkFormComponent {
         }
     }
 
+    isButtonDisabled(): boolean {
+        // Verificar campos de fecha si isCustomDate está activo
+        const hasValidDateFields = this.isCustomDate
+            ? this.createNewLinkForm.get('startDate')?.value &&
+              this.createNewLinkForm.get('endDate')?.value &&
+              this.createNewLinkForm.get('startTime')?.value &&
+              this.createNewLinkForm.get('endTime')?.value
+            : true
+
+        // Verificar campo de clicks si isCustomClick está activo
+        const hasValidClickLimit = this.isCustomClick
+            ? this.createNewLinkForm.get('clickLimit')?.value &&
+              this.createNewLinkForm.get('clickLimit')?.valid
+            : true
+
+        // Si ambos están activos, necesitamos que ambos conjuntos de campos estén completos
+        if (this.isCustomDate && this.isCustomClick) {
+            return !hasValidDateFields || !hasValidClickLimit
+        }
+
+        // Si solo isCustomDate está activo
+        if (this.isCustomDate) {
+            return !hasValidDateFields
+        }
+
+        // Si solo isCustomClick está activo
+        if (this.isCustomClick) {
+            return !hasValidClickLimit
+        }
+
+        // Si ninguno está activo, el botón debería estar habilitado
+        return false
+    }
+
     onSubmit() {
         if (this.createNewLinkForm.invalid) {
             return
