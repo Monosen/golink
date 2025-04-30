@@ -21,8 +21,10 @@ export class ShortUrlCardComponent {
     @Input() shortCode: string = ''
     @Input() clicks: number = 0
     @Input() fullUrl: string = ''
-    @Input() date: string = ''
+    @Input() createdAt: Date | null = null
     @Input() clickLimit: number | null = null
+    @Input() startDate: Date | null = null
+    @Input() endDate: Date | null = null
 
     isCopied: boolean = false // Nueva propiedad para rastrear el estado del ícono
     baseUrl: string = '' // Propiedad para almacenar la URL base
@@ -46,12 +48,28 @@ export class ShortUrlCardComponent {
         })
     }
 
-    getFormattedDate(): string {
-        const date = new Date(this.date)
-        return date.toLocaleDateString('en-US', {
+    getFormattedDate(date: Date | null): string {
+        if (!date) {
+            return ''
+        }
+
+        const newDate = new Date(date)
+        return newDate.toLocaleDateString('en-US', {
             day: '2-digit',
             month: 'long',
             year: 'numeric'
+        })
+    }
+
+    getFormattedTime(date: Date | null): string {
+        if (!date) {
+            return ''
+        }
+
+        const newDate = new Date(date)
+        return newDate.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit'
         })
     }
 

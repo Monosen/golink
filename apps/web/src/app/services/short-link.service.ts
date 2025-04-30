@@ -10,7 +10,9 @@ export interface ShortUrl {
     longUrl: string
     clickCount: number
     clickLimit: number | null
-    createdAt: string
+    createdAt: Date
+    startDate: Date | null
+    endDate: Date | null
 }
 
 export interface CreateShortUrlDto {

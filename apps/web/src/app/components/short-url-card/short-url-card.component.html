@@ -24,6 +24,16 @@
     </div>
     <p>{{ getFullUrl() }}</p>
     <div class="flex justify-end">
-        <p>{{ getFormattedDate() }}</p>
+        <div class="flex items-center flex-col space-x-2">
+            @if (startDate && endDate) {
+            <span>start: {{ getFormattedDate(startDate) }} - {{ getFormattedTime(startDate) }}</span>
+            <span>end: {{ getFormattedDate(endDate)}} - {{ getFormattedTime(endDate) }}</span>
+            } @else if (startDate) {
+            <span>start: {{ getFormattedDate(startDate) }} - {{ getFormattedTime(startDate) }}</span>
+            } @else if (endDate) {
+            <span>end: {{ getFormattedDate(endDate)}} - {{ getFormattedTime(endDate) }}</span>
+            }
+        </div>
+        <p>{{ getFormattedDate(createdAt)}}</p>
     </div>
 </div>
