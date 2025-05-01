@@ -4,8 +4,8 @@ import { UrlLinkIconComponent } from '../../assets/icons/url-link-icon/url-link-
 import { LinkComponent } from '../../components/ui/link/link.component'
 
 @Component({
-    selector: 'app-home',
-    imports: [GithubIconComponent, UrlLinkIconComponent, LinkComponent],
-    templateUrl: './home.component.html'
+  selector: 'app-home',
+  imports: [GithubIconComponent, UrlLinkIconComponent, LinkComponent],
+  templateUrl: './home.component.html',
 })
 export class HomeComponent {}

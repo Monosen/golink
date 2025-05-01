@@ -1,53 +1,58 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate class="mb-4">
-    <div class="grid gap-2">
-        <div class="grid gap-1">
-            <label class="text-white" for="name">Name</label>
-            <app-input formControlName="name" placeholder="Name" type="text"></app-input>
-            @if (registerForm.get('name')?.invalid && registerForm.get('name')?.touched) {
-                <div class="text-red-500 text-sm mt-1">
-                    @if (registerForm.get('name')?.errors?.['required']) {
-                        <span>Name is required</span>
-                    }
-                </div>
-            }
-            
-            <label class="text-white mt-2" for="email">Email</label>
-            <app-input formControlName="email" placeholder="name@example.com" type="email"></app-input>
-            @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
-                <div class="text-red-500 text-sm mt-1">
-                    @if (registerForm.get('email')?.errors?.['required']) {
-                        <span>Email is required</span>
-                    }
-                    @if (registerForm.get('email')?.errors?.['email']) {
-                        <span>Please enter a valid email</span>
-                    }
-                </div>
-            }
-            
-            <label class="text-white mt-2" for="password">Password</label>
-            <app-input formControlName="password" placeholder="Password" type="password"></app-input>
-            @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
-                <div class="text-red-500 text-sm mt-1">
-                    @if (registerForm.get('password')?.errors?.['required']) {
-                        <span>Password is required</span>
-                    }
-                    @if (registerForm.get('password')?.errors?.['minlength']) {
-                        <span>Password must be at least 6 characters</span>
-                    }
-                </div>
-            }
+<form [formGroup]="registerForm" (submit)="onSubmit()" novalidate class="mb-4">
+  <div class="grid gap-2">
+    <div class="grid gap-1">
+      <label class="text-white" for="name">Name</label>
+      <app-input
+        formControlName="name"
+        placeholder="Name"
+        type="text"
+      ></app-input>
+      @if (name.invalid && name.touched) {
+        <p class="text-red-500 text-sm mt-1">Name is required</p>
+      }
+
+      <label class="text-white mt-2" for="email">Email</label>
+      <app-input
+        formControlName="email"
+        placeholder="name@example.com"
+        type="email"
+      ></app-input>
+      @if (email.invalid && email.touched) {
+        <div class="text-red-500 text-sm mt-1">
+          @if (password.hasError('required')) {
+            <span>Email is required</span>
+          }
+          @if (password.hasError('email')) {
+            <span>Please enter a valid email</span>
+          }
         </div>
-        
-        @if (errorMessage) {
-            <div class="text-red-500 text-center mt-2">
-                {{ errorMessage }}
-            </div>
-        }
-        
-        <app-button 
-            class="justify-self-center" 
-            type="submit" 
-            name="Register">
-        </app-button>
+      }
+
+      <label class="text-white mt-2" for="password">Password</label>
+      <app-input
+        formControlName="password"
+        placeholder="Password"
+        type="password"
+      ></app-input>
+      @if (password.invalid && password.touched) {
+        <div class="text-red-500 text-sm mt-1">
+          @if (password.hasError('required')) {
+            <span>Password is required</span>
+          }
+          @if (password.hasError('minlength')) {
+            <span>Password must be at least 6 characters</span>
+          }
+        </div>
+      }
     </div>
+
+    @if (errorMessage) {
+      <div class="text-red-500 text-center mt-2">
+        {{ errorMessage }}
+      </div>
+    }
+
+    <app-button class="justify-self-center" type="submit" name="Register">
+    </app-button>
+  </div>
 </form>

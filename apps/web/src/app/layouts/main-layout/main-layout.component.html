@@ -1,28 +1,35 @@
 <div class="text-white bg-black h-screen w-full relative overflow-hidden">
-    <header class="relative z-30 bg-black">
-        <div class="m-auto px-1 sm:px-3 md:px-5 lg:px-7 xl:w-7xl">
-            <app-navbar></app-navbar>
-            @if(showSubNavbar){
-            <app-sub-navbar></app-sub-navbar>
-            }
-        </div>
-    </header>
+  <header class="relative z-30 bg-black">
+    <div class="m-auto px-1 sm:px-3 md:px-5 lg:px-7 xl:w-7xl">
+      <app-navbar></app-navbar>
+      @if (showSubNavbar) {
+        <app-sub-navbar></app-sub-navbar>
+      }
+    </div>
+  </header>
 
-    <img class="absolute min-w-[180rem] z-10 opacity-25 -top-[90rem] -right-[80rem]" src="/images/blobPurple.png" />
-    <img class="absolute min-w-2xl z-10 opacity-25 -bottom-72 -left-60" src="/images/pink-glow.png" />
+  <img
+    class="absolute min-w-[180rem] z-10 opacity-25 -top-[90rem] -right-[80rem]"
+    src="/images/blobPurple.png"
+  />
+  <img
+    class="absolute min-w-2xl z-10 opacity-25 -bottom-72 -left-60"
+    src="/images/pink-glow.png"
+  />
 
-    <main class="mx-auto px-3 xl:w-7xl relative z-20">
-        <ng-content></ng-content>
-    </main>
+  <main class="mx-auto px-3 xl:w-7xl relative z-20">
+    <ng-content></ng-content>
+  </main>
 
-    <footer
-        class="mx-auto px-1 sm:px-3 md:px-5 lg:px-7 xl:w-7xl absolute bottom-0 left-1/2 -translate-x-1/2 w-full z-30">
-        <app-footer></app-footer>
-    </footer>
+  <footer
+    class="mx-auto px-1 sm:px-3 md:px-5 lg:px-7 xl:w-7xl absolute bottom-0 left-1/2 -translate-x-1/2 w-full z-30"
+  >
+    <app-footer></app-footer>
+  </footer>
 
-    <!-- Modal -->
+  <!-- Modal -->
 
-    @if (showCreateLinkModal) {
+  @if (showCreateLinkModal) {
     <app-create-new-link></app-create-new-link>
-    }
+  }
 </div>

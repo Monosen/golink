@@ -6,26 +6,26 @@ import { AuthGuard } from '@nestjs/passport'
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
-    @Post('github')
-    githubLogin(@Body() body: { code: string }) {
-        return this.authService.githubLogin(body.code)
-    }
+  @Post('github')
+  githubLogin(@Body() body: { code: string }) {
+    return this.authService.githubLogin(body.code)
+  }
 
-    @Post('register')
-    registerUser(@Body() registerUser: RegisterUserDto) {
-        return this.authService.register(registerUser)
-    }
+  @Post('register')
+  registerUser(@Body() registerUser: RegisterUserDto) {
+    return this.authService.register(registerUser)
+  }
 
-    @Post('login')
-    loginUser(@Body() loginUserDto: LoginUserDto) {
-        return this.authService.login(loginUserDto)
-    }
+  @Post('login')
+  loginUser(@Body() loginUserDto: LoginUserDto) {
+    return this.authService.login(loginUserDto)
+  }
 
-    @Get('check-auth')
-    @UseGuards(AuthGuard())
-    checkAuth() {
-        return { message: 'Authenticated' }
-    }
+  @Get('check-auth')
+  @UseGuards(AuthGuard())
+  checkAuth() {
+    return { message: 'Authenticated' }
+  }
 }

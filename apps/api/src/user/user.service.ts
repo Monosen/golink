@@ -5,96 +5,96 @@ import { PrismaService } from 'src/prisma/prisma.service'
 
 @Injectable()
 export class UserService {
-    constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
-    async create(createUserDto: CreateUserDto) {
-        const user = await this.prismaService.user.create({
-            data: {
-                ...createUserDto
-            },
-            select: {
-                id: false,
-                email: true,
-                name: true,
-                provider: false,
-                providerId: false,
-                password: false
-            }
-        })
+  async create(createUserDto: CreateUserDto) {
+    const user = await this.prismaService.user.create({
+      data: {
+        ...createUserDto,
+      },
+      select: {
+        id: false,
+        email: true,
+        name: true,
+        provider: false,
+        providerId: false,
+        password: false,
+      },
+    })
 
-        return user
+    return user
+  }
+
+  async findById(id: number) {
+    if (!id) {
+      throw new Error('ID is required')
     }
 
-    async findById(id: number) {
-        if (!id) {
-            throw new Error('ID is required')
-        }
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: false,
+        email: true,
+        name: true,
+        provider: false,
+        providerId: false,
+        password: false,
+      },
+    })
 
-        const user = await this.prismaService.user.findUnique({
-            where: {
-                id
-            },
-            select: {
-                id: false,
-                email: true,
-                name: true,
-                provider: false,
-                providerId: false,
-                password: false
-            }
-        })
+    return user
+  }
 
-        return user
+  async findByEmail(email: string) {
+    if (!email) {
+      throw new Error('email is required')
     }
 
-    async findByEmail(email: string) {
-        if (!email) {
-            throw new Error('email is required')
-        }
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        email,
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        provider: true,
+        providerId: false,
+        password: false,
+      },
+    })
 
-        const user = await this.prismaService.user.findUnique({
-            where: {
-                email
-            },
-            select: {
-                id: true,
-                email: true,
-                name: true,
-                provider: true,
-                providerId: false,
-                password: false
-            }
-        })
+    return user
+  }
 
-        return user
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    if (!id) {
+      throw new Error('ID is required')
     }
 
-    async update(id: number, updateUserDto: UpdateUserDto) {
-        if (!id) {
-            throw new Error('ID is required')
-        }
+    const user = await this.prismaService.user.update({
+      where: {
+        id,
+      },
+      data: {
+        ...updateUserDto,
+      },
+    })
 
-        const user = await this.prismaService.user.update({
-            where: {
-                id
-            },
-            data: {
-                ...updateUserDto
-            }
-        })
+    return user
+  }
 
-        return user
+  async remove(id: number) {
+    if (!id) {
+      throw new Error('ID is required')
     }
 
-    async remove(id: number) {
-        if (!id) {
-            throw new Error('ID is required')
-        }
-
-        await this.prismaService.user.delete({
-            where: {
-                id
-            }
-        })
-    }
+    await this.prismaService.user.delete({
+      where: {
+        id,
+      },
+    })
+  }
 }

@@ -5,8 +5,8 @@ import { PrismaModule } from 'src/prisma/prisma.module'
 import { AuthModule } from 'src/auth/auth.module'
 
 @Module({
-    controllers: [ShortUrlController],
-    providers: [ShortUrlService],
-    imports: [PrismaModule, AuthModule]
+  controllers: [ShortUrlController],
+  providers: [ShortUrlService],
+  imports: [PrismaModule, AuthModule],
 })
 export class ShortUrlModule {}

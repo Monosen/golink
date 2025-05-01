@@ -1,10 +1,17 @@
 <app-link-management-bar></app-link-management-bar>
 
 <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-    @for (shortUrl of shortUrls; track shortUrl.id) {
-    <app-short-url-card [id]="shortUrl.id" [shortCode]="shortUrl.shortCode" [clicks]="shortUrl.clickCount"
-        [clickLimit]="shortUrl.clickLimit" [fullUrl]="shortUrl.longUrl" [createdAt]="shortUrl.createdAt"
-        [startDate]="shortUrl.startDate" [endDate]="shortUrl.endDate">
+  @for (shortUrl of shortUrls; track shortUrl.id) {
+    <app-short-url-card
+      [id]="shortUrl.id"
+      [shortCode]="shortUrl.shortCode"
+      [clicks]="shortUrl.clickCount"
+      [clickLimit]="shortUrl.clickLimit"
+      [fullUrl]="shortUrl.longUrl"
+      [createdAt]="shortUrl.createdAt"
+      [startDate]="shortUrl.startDate"
+      [endDate]="shortUrl.endDate"
+    >
     </app-short-url-card>
-    }
+  }
 </div>

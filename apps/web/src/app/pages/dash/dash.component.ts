@@ -4,22 +4,22 @@ import { ShortUrlCardComponent } from '../../components/short-url-card/short-url
 import { LinkManagementBarComponent } from '../../components/link-management-bar/link-management-bar.component'
 
 @Component({
-    selector: 'app-dash',
-    templateUrl: './dash.component.html',
-    imports: [ShortUrlCardComponent, LinkManagementBarComponent]
+  selector: 'app-dash',
+  templateUrl: './dash.component.html',
+  imports: [ShortUrlCardComponent, LinkManagementBarComponent],
 })
 export class DashComponent implements OnInit {
-    shortUrls: ShortUrl[] = []
+  shortUrls: ShortUrl[] = []
 
-    constructor(private shortLinkService: ShortLinkService) {}
+  constructor(private shortLinkService: ShortLinkService) {}
 
-    ngOnInit(): void {
-        // Suscribirse al observable para obtener los datos
-        this.shortLinkService.shortUrls$.subscribe((shortUrls) => {
-            this.shortUrls = shortUrls
-        })
+  ngOnInit(): void {
+    // Suscribirse al observable para obtener los datos
+    this.shortLinkService.shortUrls$.subscribe(shortUrls => {
+      this.shortUrls = shortUrls
+    })
 
-        // Cargar las URLs cortas al inicializar
-        this.shortLinkService.getAllShortUrls().subscribe()
-    }
+    // Cargar las URLs cortas al inicializar
+    this.shortLinkService.getAllShortUrls().subscribe()
+  }
 }

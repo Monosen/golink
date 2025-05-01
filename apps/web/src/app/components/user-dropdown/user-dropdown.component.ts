@@ -8,23 +8,23 @@ import { BugIconComponent } from '../../assets/icons/bug-icon/bug-icon.component
 import { MenuItemComponent } from '../menu-item/menu-item.component'
 
 @Component({
-    selector: 'app-user-dropdown',
-    imports: [
-        UserIconComponent,
-        SettingIconComponent,
-        RouterLink,
-        LoginIconComponent,
-        BugIconComponent,
-        MenuItemComponent
-    ],
-    templateUrl: './user-dropdown.component.html'
+  selector: 'app-user-dropdown',
+  imports: [
+    UserIconComponent,
+    SettingIconComponent,
+    RouterLink,
+    LoginIconComponent,
+    BugIconComponent,
+    MenuItemComponent,
+  ],
+  templateUrl: './user-dropdown.component.html',
 })
 export class UserDropdownComponent {
-    showDropdown = false
+  showDropdown = false
 
-    constructor(public readonly authService: AuthService) {}
+  constructor(public readonly authService: AuthService) {}
 
-    toggleDropdown() {
-        this.showDropdown = !this.showDropdown
-    }
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown
+  }
 }

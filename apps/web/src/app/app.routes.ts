@@ -11,45 +11,45 @@ import { shortUrlGuard } from './guards/short-url.guard'
 import { RedirectComponent } from './pages/redirect/redirect.component'
 
 export const routes: Routes = [
-    {
+  {
+    path: '',
+    title: 'home',
+    component: HomeComponent,
+  },
+  {
+    path: 'dash',
+    title: 'dash',
+    canActivate: [authGuard],
+    children: [
+      { path: '', component: DashComponent },
+      {
+        path: 'settings',
+        title: 'settings',
+        component: SettingsComponent,
+      },
+    ],
+  },
+  {
+    path: 'auth',
+    title: 'auth',
+    children: [
+      {
         path: '',
-        title: 'home',
-        component: HomeComponent
-    },
-    {
-        path: 'dash',
-        title: 'dash',
-        canActivate: [authGuard],
-        children: [
-            { path: '', component: DashComponent },
-            {
-                path: 'settings',
-                title: 'settings',
-                component: SettingsComponent
-            }
-        ]
-    },
-    {
-        path: 'auth',
-        title: 'auth',
-        children: [
-            {
-                path: '',
-                component: AuthComponent,
-                canActivate: [noAuthGuard]
-            },
-            {
-                path: 'callback',
-                title: 'auth-callback',
-                component: CallbackComponent,
-                canActivate: [noAuthGuard]
-            }
-        ]
-    },
-    {
-        path: ':code',
-        title: 'redirect',
-        component: RedirectComponent,
-        canActivate: [shortUrlGuard]
-    }
+        component: AuthComponent,
+        canActivate: [noAuthGuard],
+      },
+      {
+        path: 'callback',
+        title: 'auth-callback',
+        component: CallbackComponent,
+        canActivate: [noAuthGuard],
+      },
+    ],
+  },
+  {
+    path: ':code',
+    title: 'redirect',
+    component: RedirectComponent,
+    canActivate: [shortUrlGuard],
+  },
 ]

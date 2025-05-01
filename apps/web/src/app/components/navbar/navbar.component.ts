@@ -9,20 +9,20 @@ import { MoonIconComponent } from '../../assets/icons/moon-icon/moon-icon.compon
 import { UserDropdownComponent } from '../user-dropdown/user-dropdown.component'
 
 @Component({
-    selector: 'app-navbar',
-    imports: [
-        RouterLink,
-        LoginIconComponent,
-        RegisterIconComponent,
-        LinkComponent,
-        GithubIconComponent,
-        MoonIconComponent,
-        UserDropdownComponent
-    ],
-    templateUrl: './navbar.component.html'
+  selector: 'app-navbar',
+  imports: [
+    RouterLink,
+    LoginIconComponent,
+    RegisterIconComponent,
+    LinkComponent,
+    GithubIconComponent,
+    MoonIconComponent,
+    UserDropdownComponent,
+  ],
+  templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
-    constructor(public readonly authService: AuthService) {
-        // Initialize any necessary properties or services here
-    }
+  constructor(public readonly authService: AuthService) {
+    // Initialize any necessary properties or services here
+  }
 }

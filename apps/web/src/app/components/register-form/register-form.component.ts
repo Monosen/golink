@@ -3,64 +3,69 @@ import { InputComponent } from '../ui/input/input.component'
 import { ButtonComponent } from '../ui/button/button.component'
 import { AuthService, RegisterUserDto } from '../../pages/auth/auth.service'
 import {
-    FormBuilder,
-    FormGroup,
-    Validators,
-    ReactiveFormsModule
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+  FormControl,
 } from '@angular/forms'
 import { Router } from '@angular/router'
-import { CommonModule } from '@angular/common'
 
 @Component({
-    selector: 'app-register-form',
-    imports: [
-        InputComponent,
-        ButtonComponent,
-        ReactiveFormsModule,
-        CommonModule
-    ],
-    templateUrl: './register-form.component.html',
-    standalone: true
+  selector: 'app-register-form',
+  imports: [InputComponent, ButtonComponent, ReactiveFormsModule],
+  templateUrl: './register-form.component.html',
+  standalone: true,
 })
 export class RegisterFormComponent {
-    registerForm: FormGroup
-    errorMessage: string = ''
-    isLoading: boolean = false
+  name: FormControl
+  email: FormControl
+  password: FormControl
 
-    constructor(
-        private authService: AuthService,
-        private fb: FormBuilder,
-        private router: Router
-    ) {
-        this.registerForm = this.fb.group({
-            name: ['', [Validators.required]],
-            email: ['', [Validators.required, Validators.email]],
-            password: ['', [Validators.required, Validators.minLength(6)]]
-        })
+  registerForm: FormGroup
+  errorMessage: string = ''
+  isLoading: boolean = false
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.name = new FormControl('', [control => Validators.required(control)])
+    this.email = new FormControl('', [
+      control => Validators.required(control),
+      control => Validators.email(control),
+    ])
+    this.password = new FormControl('', [
+      control => Validators.required(control),
+      () => Validators.minLength(6),
+    ])
+    this.registerForm = new FormGroup({
+      name: this.name,
+      email: this.email,
+      password: this.password,
+    })
+  }
+
+  onSubmit() {
+    if (this.registerForm.invalid) {
+      return
     }
 
-    onSubmit() {
-        if (this.registerForm.invalid) {
-            return
-        }
+    this.isLoading = true
+    this.errorMessage = ''
 
-        this.isLoading = true
-        this.errorMessage = ''
-
-        const registerData: RegisterUserDto = this.registerForm.value
-
-        this.authService.register(registerData).subscribe({
-            next: () => {
-                this.isLoading = false
-                // Navigate to home or dashboard after successful registration
-                this.router.navigate(['/'])
-            },
-            error: (error) => {
-                this.isLoading = false
-                this.errorMessage =
-                    error.error?.message ||
-                    'Registration failed. Please try again.'
-            }
-        })
-    }
+    this.authService
+      .register(this.registerForm.value as RegisterUserDto)
+      .subscribe({
+        next: () => {
+          this.isLoading = false
+          // Navigate to home or dashboard after successful registration
+          void this.router.navigate(['/dash'])
+        },
+        error: (error: { error?: { message?: string } }) => {
+          this.isLoading = false
+          this.errorMessage =
+            error.error?.message || 'Registration failed. Please try again.'
+        },
+      })
+  }
 }

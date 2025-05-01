@@ -1,5 +1,5 @@
 export interface JwtPayload {
-    id: number
+  id: number
 
-    // TODO: añadir todo lo que quieran grabar.
+  // TODO: añadir todo lo que quieran grabar.
 }

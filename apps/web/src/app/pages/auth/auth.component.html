@@ -1,40 +1,47 @@
 <div class="flex flex-col justify-center items-center">
+  <div
+    class="mx-auto flex w-full flex-col justify-center px-5 pt-0 md:h-[unset] md:max-w-[50%] lg:max-w-[50%] lg:px-6"
+  >
     <div
-        class="mx-auto flex w-full flex-col justify-center px-5 pt-0 md:h-[unset] md:max-w-[50%] lg:max-w-[50%] lg:px-6">
-        <div
-            class="my-auto mb-auto mt-8 flex flex-col md:mt-[70px] w-[350px] max-w-[450px] mx-auto md:max-w-[450px] lg:mt-[130px] lg:max-w-[450px]">
-            @if (mode === "login") {
-            <p class="text-[32px] font-bold text-white">Login</p>
-            } @else if (mode === "register") {
-            <p class="text-[32px] font-bold text-white">Register</p>
-            }
-            <p class="mb-2.5 mt-2.5 font-normal text-white">
-                Enter your email and password to sign in!
-            </p>
-            <div class="mt-8">
-                <button (click)="loginWithGithub()"
-                    class="cursor-pointer bg-white text-black w-full flex items-center justify-center rounded-lg px-4 py-4 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-white/90">
-                    <app-github-icon></app-github-icon>
-                    <span class="mr-2"></span><span>Github</span>
-                </button>
-            </div>
-            <div class="relative my-4">
-                <div class="relative flex items-center py-1">
-                    <div class="grow border-t border-zinc-200"></div>
-                    <div class="grow border-t border-zinc-200"></div>
-                </div>
-            </div>
-            <div>
-                @if (mode === "login") {
-                <app-login-form></app-login-form>
-                <p>
-                    <a href="/dashboard/signin/forgot_password" class="font-medium text-white text-sm">Forgot your
-                        password?</a>
-                </p>
-                } @else if (mode === "register") {
-                <app-register-form></app-register-form>
-                }
-            </div>
+      class="my-auto mb-auto mt-8 flex flex-col md:mt-[70px] w-[350px] max-w-[450px] mx-auto md:max-w-[450px] lg:mt-[130px] lg:max-w-[450px]"
+    >
+      @if (mode === 'login') {
+        <p class="text-[32px] font-bold text-white">Login</p>
+      } @else if (mode === 'register') {
+        <p class="text-[32px] font-bold text-white">Register</p>
+      }
+      <p class="mb-2.5 mt-2.5 font-normal text-white">
+        Enter your email and password to sign in!
+      </p>
+      <div class="mt-8">
+        <button
+          (click)="loginWithGithub()"
+          class="cursor-pointer bg-white text-black w-full flex items-center justify-center rounded-lg px-4 py-4 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-white/90"
+        >
+          <app-github-icon></app-github-icon>
+          <span class="mr-2"></span><span>Github</span>
+        </button>
+      </div>
+      <div class="relative my-4">
+        <div class="relative flex items-center py-1">
+          <div class="grow border-t border-zinc-200"></div>
+          <div class="grow border-t border-zinc-200"></div>
         </div>
+      </div>
+      <div>
+        @if (mode === 'login') {
+          <app-login-form></app-login-form>
+          <p>
+            <a
+              href="/dashboard/signin/forgot_password"
+              class="font-medium text-white text-sm"
+              >Forgot your password?</a
+            >
+          </p>
+        } @else if (mode === 'register') {
+          <app-register-form></app-register-form>
+        }
+      </div>
     </div>
+  </div>
 </div>

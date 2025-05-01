@@ -3,8 +3,8 @@ import { LinkedinIconComponent } from '../../assets/icons/linkedin-icon/linkedin
 import { HeartIconComponent } from '../../assets/icons/heart-icon/heart-icon.component'
 
 @Component({
-    selector: 'app-footer',
-    imports: [LinkedinIconComponent, HeartIconComponent],
-    templateUrl: './footer.component.html'
+  selector: 'app-footer',
+  imports: [LinkedinIconComponent, HeartIconComponent],
+  templateUrl: './footer.component.html',
 })
 export class FooterComponent {}
