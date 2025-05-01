@@ -147,11 +147,23 @@ export class ShortUrlService {
         longUrl: true,
         clickCount: true,
         clickLimit: true,
+        startDate: true,
+        endDate: true,
       },
     })
 
     if (!shortUrlData) {
       throw new NotFoundException(`Short URL ${shortUrl} not found`)
+    }
+
+    // Validar si la fecha actual está dentro del rango de startDate y endDate
+    const currentDate = new Date()
+    if (
+      (shortUrlData.startDate &&
+        currentDate < new Date(shortUrlData.startDate)) ||
+      (shortUrlData.endDate && currentDate > new Date(shortUrlData.endDate))
+    ) {
+      throw new NotFoundException('This URL is not active at the current time')
     }
 
     // Verificar si se ha alcanzado el límite de clics
