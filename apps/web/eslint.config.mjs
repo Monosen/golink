@@ -1,69 +1,75 @@
 // @ts-check
-/// <reference types="node" />
-import js from '@eslint/js'
-import ts from '@typescript-eslint/eslint-plugin'
-import parser from '@typescript-eslint/parser'
-import angular from '@angular-eslint/eslint-plugin'
-import angularTemplate from '@angular-eslint/eslint-plugin-template'
+import prettierPlugin from 'eslint-plugin-prettier'
+import typescriptParser from '@typescript-eslint/parser'
+import tsPlugin from '@typescript-eslint/eslint-plugin'
+import angularPlugin from '@angular-eslint/eslint-plugin'
+import angularTemplateParser from '@angular-eslint/template-parser'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
-import tseslint from 'typescript-eslint'
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
 
 export default [
 	{
-		ignores: [
-			'eslint.config.mjs',
-			'dist/**/*',
-			'.angular/**/*',
-			'coverage/**/*',
-			'tmp/**/*',
-			'out-tsc/**/*',
-		],
+		ignores: ['.cache/', '.git/', '.github/', 'node_modules/'],
 	},
-	js.configs.recommended,
-	...tseslint.configs.recommendedTypeChecked,
-	eslintPluginPrettierRecommended,
 	{
 		files: ['**/*.ts'],
 		languageOptions: {
-			parser,
+			parser: typescriptParser,
 			parserOptions: {
-				project: true,
-				tsconfigRootDir: dirname(fileURLToPath(import.meta.url)),
+				project: [
+					'./tsconfig.json',
+					'./tsconfig.app.json',
+					'./tsconfig.spec.json',
+				],
 			},
 		},
 		plugins: {
-			'@typescript-eslint': ts,
-			'@angular-eslint': angular,
-		},
-		linterOptions: {
-			reportUnusedDisableDirectives: true,
+			'@typescript-eslint': tsPlugin,
+			'@angular-eslint': angularPlugin,
+			prettier: prettierPlugin,
 		},
 		rules: {
-			...ts.configs['recommended'].rules,
-			...ts.configs['recommended-requiring-type-checking'].rules,
-			...angular.configs['recommended'].rules,
-			'@typescript-eslint/no-explicit-any': 'off',
-			'@typescript-eslint/no-floating-promises': 'warn',
-			'@typescript-eslint/no-unsafe-argument': 'warn',
-			'prettier/prettier': 'warn',
+			...tsPlugin.configs.recommended.rules,
+			...angularPlugin.configs.recommended.rules,
+			...prettierPlugin.configs?.rules,
+			'@angular-eslint/directive-selector': [
+				'warn',
+				{
+					type: 'attribute',
+					prefix: 'app',
+					style: 'camelCase',
+				},
+			],
+			'@angular-eslint/component-selector': [
+				'warn',
+				{
+					type: 'element',
+					prefix: 'app',
+					style: 'kebab-case',
+				},
+			],
+			'import/order': 'off',
+			'@typescript-eslint/no-explicit-any': ['off'],
+			'@typescript-eslint/member-ordering': 0,
+			'@typescript-eslint/naming-convention': 0,
+			'@angular-eslint/no-host-metadata-property': 'off',
+			'@angular-eslint/no-output-on-prefix': 'off',
+			'@typescript-eslint/ban-types': 'off',
+			'@typescript-eslint/no-inferrable-types': 'off',
 		},
 	},
 	{
 		files: ['**/*.html'],
+		languageOptions: {
+			parser: angularTemplateParser,
+		},
 		plugins: {
-			'@angular-eslint/template': angularTemplate,
+			'@angular-eslint': angularPlugin,
+			'@angular-eslint/template': angularPlugin,
+			prettier: prettierPlugin,
 		},
 		rules: {
-			...angularTemplate.configs['recommended'].rules,
-			'prettier/prettier': 'warn',
+			'prettier/prettier': ['error', { parser: 'angular' }],
 		},
 	},
-	{
-		files: ['**/*.css', '**/*.scss'],
-		rules: {
-			'prettier/prettier': 'warn',
-		},
-	},
+	eslintPluginPrettierRecommended,
 ]
