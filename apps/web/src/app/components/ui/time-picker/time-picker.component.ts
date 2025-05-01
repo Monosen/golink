@@ -43,10 +43,11 @@ export class TimePickerComponent implements ControlValueAccessor {
 
   @HostListener('document:click', ['$event'])
   clickOutside(event: Event) {
-    const target = event.target as Node | null
+    const target = event.target as HTMLElement
     if (
       target &&
-      (this.elementRef.nativeElement as HTMLElement).contains(target)
+      !(this.elementRef.nativeElement as HTMLElement).contains(target) &&
+      !target.closest('.clock-icon')
     ) {
       this.isOpen = false
     }
