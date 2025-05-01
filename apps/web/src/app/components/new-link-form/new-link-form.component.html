@@ -1,6 +1,6 @@
 <form
   [formGroup]="createNewLinkForm"
-  (ngSubmit)="onSubmit()"
+  (submit)="onSubmit()"
   novalidate
   class="mt-6 space-y-4"
 >
@@ -10,6 +10,13 @@
     placeholder="https://example.com"
     type="text"
   ></app-input>
+  @if (
+    createNewLinkForm.get('longUrl')?.invalid &&
+    createNewLinkForm.get('longUrl')?.touched
+  ) {
+    <p class="text-red-500 text-sm">La URL es requerida</p>
+  }
+
   <label class="text-lg text-gray-600">Short link:</label>
   <div class="flex">
     <input
@@ -27,6 +34,21 @@
       <span class="text-sm font-medium">Random</span>
     </button>
   </div>
+  @if (
+    createNewLinkForm.get('shortCode')?.errors?.['required'] &&
+    createNewLinkForm.get('shortCode')?.touched
+  ) {
+    <span class="text-red-500 text-sm">El código corto es requerido</span>
+  }
+  @if (
+    createNewLinkForm.get('shortCode')?.errors?.['pattern'] &&
+    createNewLinkForm.get('shortCode')?.touched
+  ) {
+    <span class="text-red-500 text-sm"
+      >Solo se permiten letras y números sin espacios</span
+    >
+  }
+
   <div>
     <label class="text-lg text-gray-600">Temporal:</label>
     <div class="flex space-x-1">
@@ -49,8 +71,35 @@
         none
       </button>
     </div>
+
     @if (isCustomDate) {
       <div class="space-y-4">
+        <!-- Mostrar mensajes de error generales de fechas -->
+        @if (
+          createNewLinkForm.hasError('atLeastOneDateRequired') &&
+          createNewLinkForm.touched
+        ) {
+          <span class="text-red-500 text-sm"
+            >Debe especificar al menos una fecha de inicio o fin</span
+          >
+        }
+        @if (
+          createNewLinkForm.hasError('endDateBeforeStart') &&
+          createNewLinkForm.touched
+        ) {
+          <span class="text-red-500 text-sm"
+            >La fecha de fin debe ser posterior a la fecha de inicio</span
+          >
+        }
+        @if (
+          createNewLinkForm.hasError('startDateInPast') &&
+          createNewLinkForm.touched
+        ) {
+          <span class="text-red-500 text-sm"
+            >La fecha de inicio no puede ser en el pasado</span
+          >
+        }
+
         <div>
           <label class="text-lg text-gray-600">Start:</label>
           <div class="flex space-x-2">
@@ -61,7 +110,35 @@
             />
             <app-time-picker formControlName="startTime"></app-time-picker>
           </div>
+          <!-- Errores de fecha de inicio -->
+          @if (
+            createNewLinkForm.hasError('startTimeRequired') &&
+            createNewLinkForm.touched
+          ) {
+            <span class="text-red-500 text-sm"
+              >La hora de inicio es requerida cuando se especifica la
+              fecha</span
+            >
+          }
+          @if (
+            createNewLinkForm.hasError('startDateRequired') &&
+            createNewLinkForm.touched
+          ) {
+            <span class="text-red-500 text-sm"
+              >La fecha de inicio es requerida cuando se especifica la
+              hora</span
+            >
+          }
+          @if (
+            createNewLinkForm.hasError('invalidStartTime') &&
+            createNewLinkForm.touched
+          ) {
+            <span class="text-red-500 text-sm"
+              >El formato de hora de inicio es inválido (HH:MM)</span
+            >
+          }
         </div>
+
         <div>
           <label class="text-lg text-gray-600">End:</label>
           <div class="flex space-x-2">
@@ -72,6 +149,31 @@
             />
             <app-time-picker formControlName="endTime"></app-time-picker>
           </div>
+          <!-- Errores de fecha de fin -->
+          @if (
+            createNewLinkForm.hasError('endTimeRequired') &&
+            createNewLinkForm.touched
+          ) {
+            <span class="text-red-500 text-sm"
+              >La hora de fin es requerida cuando se especifica la fecha</span
+            >
+          }
+          @if (
+            createNewLinkForm.hasError('endDateRequired') &&
+            createNewLinkForm.touched
+          ) {
+            <span class="text-red-500 text-sm"
+              >La fecha de fin es requerida cuando se especifica la hora</span
+            >
+          }
+          @if (
+            createNewLinkForm.hasError('invalidEndTime') &&
+            createNewLinkForm.touched
+          ) {
+            <span class="text-red-500 text-sm"
+              >El formato de hora de fin es inválido (HH:MM)</span
+            >
+          }
         </div>
       </div>
     }
@@ -110,12 +212,18 @@
             min="1"
             placeholder="Enter number of clicks"
           />
-          @if (createNewLinkForm.get('clickLimit')?.errors?.['min']) {
+          @if (
+            createNewLinkForm.get('clickLimit')?.errors?.['min'] &&
+            createNewLinkForm.get('clickLimit')?.touched
+          ) {
             <span class="text-red-500 text-sm"
               >El límite debe ser mayor a 0</span
             >
           }
-          @if (createNewLinkForm.get('clickLimit')?.errors?.['pattern']) {
+          @if (
+            createNewLinkForm.get('clickLimit')?.errors?.['pattern'] &&
+            createNewLinkForm.get('clickLimit')?.touched
+          ) {
             <span class="text-red-500 text-sm">Solo se permiten números</span>
           }
         </div>
@@ -128,6 +236,16 @@
     class="border border-gray-300 rounded-lg px-4 py-2 w-full"
     placeholder="Description"
   ></textarea>
+
+  <!-- Mensaje de error general -->
+  @if (errorMessage) {
+    <div
+      class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"
+    >
+      {{ errorMessage }}
+    </div>
+  }
+
   <app-button
     class="justify-self-center"
     type="submit"
