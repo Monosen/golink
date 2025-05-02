@@ -2,17 +2,33 @@
   <a
     [href]="href"
     [target]="target"
-    class="flex space-x-2 items-center cursor-pointer hover:bg-black hover:opacity-70 transition-opacity duration-300"
+    [class]="menuItemClass"
+    [attr.rel]="isExternalLink() ? 'noopener noreferrer' : null"
+    [attr.aria-disabled]="disabled"
+    [attr.aria-current]="active ? 'page' : null"
   >
-    <ng-content select="[icon]"></ng-content>
-    <p>{{ label }}</p>
+    @if (iconHtml) {
+      <span [innerHTML]="iconHtml"></span>
+    }
+
+    @if (label) {
+      <span class="flex-grow">{{ label }}</span>
+    }
   </a>
 } @else {
   <a
-    [routerLink]="routerLink"
-    class="flex space-x-2 items-center cursor-pointer hover:bg-black hover:opacity-70 transition-opacity duration-300"
+    [routerLink]="disabled ? null : routerLink"
+    [queryParams]="queryParams"
+    [class]="menuItemClass"
+    [routerLinkActive]="active ? activeClass : ''"
+    [attr.aria-disabled]="disabled"
+    [attr.aria-current]="active ? 'page' : null"
+    [routerLinkActiveOptions]="{ exact: true }"
   >
-    <ng-content select="[icon]"></ng-content>
-    <p>{{ label }}</p>
+    <ng-content></ng-content>
+
+    @if (label) {
+      <span class="flex-grow">{{ label }}</span>
+    }
   </a>
 }

@@ -6,29 +6,32 @@
     <div
       class="min-w-44 absolute z-40 bg-black mt-7 border-gray-600 border rounded-lg p-3 flex flex-col gap-y-2 capitalize"
     >
-      <app-menu-item label="My Profile">
-        <span class="iconify-[mdi--user]"></span>
+      <app-menu-item label="Home" routerLink="/" [active]="true"
+        ><span class="iconify-[material-symbols--home]"></span>
+      </app-menu-item>
+      <app-menu-item label="Dash" routerLink="/dash" [active]="true">
+        <span class="iconify-[material-symbols--dashboard]"></span>
       </app-menu-item>
       <app-menu-item
         label="Settings"
         routerLink="/dash/settings"
         [active]="true"
-      >
-        <span class="iconify-[material-symbols-light--settings-rounded]"></span>
+        ><span
+          class="iconify-[material-symbols-light--settings-rounded]"
+        ></span>
       </app-menu-item>
       <app-menu-item
         label="Report a Bug"
         href="https://github.com/Monosen/golink/issues/new"
         target="_blank"
+        iconHtml='<span class="iconify-[mdi--bug]"></span>'
       >
-        <span class="iconify-[mdi--bug]"></span>
       </app-menu-item>
       <app-menu-item
         customClass="cursor-pointer"
         label="Log Out"
         (click)="authService.logout()"
-      >
-        <span class="iconify-[material-symbols--logout]"></span>
+        ><span class="iconify-[material-symbols--logout]"></span>
       </app-menu-item>
     </div>
   }
