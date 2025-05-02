@@ -1,19 +1,23 @@
-<app-link-management-bar></app-link-management-bar>
+<app-main-layout>
+  <app-sub-navbar></app-sub-navbar>
 
-<div
-  class="mt-4 grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 overflow-y-auto max-h-[75vh] pr-2"
->
-  @for (shortUrl of shortUrls; track shortUrl.id) {
-    <app-short-url-card
-      [id]="shortUrl.id"
-      [shortCode]="shortUrl.shortCode"
-      [clicks]="shortUrl.clickCount"
-      [clickLimit]="shortUrl.clickLimit"
-      [fullUrl]="shortUrl.longUrl"
-      [createdAt]="shortUrl.createdAt"
-      [startDate]="shortUrl.startDate"
-      [endDate]="shortUrl.endDate"
-    >
-    </app-short-url-card>
-  }
-</div>
+  <app-link-management-bar></app-link-management-bar>
+
+  <div
+    class="mt-4 grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 overflow-y-auto max-h-[75vh] pr-2"
+  >
+    @for (shortUrl of shortUrls; track shortUrl.id) {
+      <app-short-url-card
+        [id]="shortUrl.id"
+        [shortCode]="shortUrl.shortCode"
+        [clicks]="shortUrl.clickCount"
+        [clickLimit]="shortUrl.clickLimit"
+        [fullUrl]="shortUrl.longUrl"
+        [createdAt]="shortUrl.createdAt"
+        [startDate]="shortUrl.startDate"
+        [endDate]="shortUrl.endDate"
+      >
+      </app-short-url-card>
+    }
+  </div>
+</app-main-layout>

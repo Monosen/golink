@@ -4,10 +4,11 @@ import { RegisterFormComponent } from '../../components/register-form/register-f
 import { ActivatedRoute } from '@angular/router'
 
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc'
+import { MainLayoutComponent } from '../../layouts/main-layout/main-layout.component'
 
 @Component({
   selector: 'app-auth',
-  imports: [LoginFormComponent, RegisterFormComponent],
+  imports: [LoginFormComponent, RegisterFormComponent, MainLayoutComponent],
   templateUrl: './auth.component.html',
 })
 export class AuthComponent implements OnInit {

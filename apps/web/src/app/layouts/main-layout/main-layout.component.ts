@@ -1,31 +1,25 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { NavbarComponent } from '../../components/navbar/navbar.component'
 import { FooterComponent } from '../../components/footer/footer.component'
-import { SubNavbarComponent } from '../../components/sub-navbar/sub-navbar.component'
-import { filter, Subscription } from 'rxjs'
-import { NavigationEnd, Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
+
 import { CreateLinkService } from '../../services/modals/create-link.service'
 import { CreateNewLinkComponent } from '../../components/modals/create-new-link/create-new-link.component'
 import { SettingLinkService } from '../../services/modals/setting-link.service'
 
 @Component({
   selector: 'app-main-layout',
-  imports: [
-    NavbarComponent,
-    FooterComponent,
-    SubNavbarComponent,
-    CreateNewLinkComponent,
-  ],
+  imports: [NavbarComponent, FooterComponent, CreateNewLinkComponent],
   templateUrl: './main-layout.component.html',
 })
-export class MainLayoutComponent implements OnInit, OnDestroy {
+export class MainLayoutComponent {
   showSubNavbar: boolean = false
   routerSubscription: Subscription | undefined
   showCreateLinkModal: boolean = false
   showSettingLinkModal: boolean = false
 
   constructor(
-    private router: Router,
     private createLinkService: CreateLinkService,
     private settingLinkService: SettingLinkService
   ) {
@@ -35,26 +29,5 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
     this.settingLinkService.modalState$.subscribe((state: boolean) => {
       this.showSettingLinkModal = state
     })
-  }
-
-  ngOnInit(): void {
-    this.routerSubscription = this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.checkRoute(event.url)
-      })
-
-    // Check the initial route when the component loads
-    this.checkRoute(this.router.url)
-  }
-
-  ngOnDestroy(): void {
-    if (this.routerSubscription) {
-      this.routerSubscription?.unsubscribe()
-    }
-  }
-
-  checkRoute(url: string): void {
-    this.showSubNavbar = url.startsWith('/dash')
   }
 }

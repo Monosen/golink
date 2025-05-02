@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { AuthService } from '../auth.service'
+import { MainLayoutComponent } from '../../../layouts/main-layout/main-layout.component'
 
 @Component({
   selector: 'app-callback',
   templateUrl: './callback.component.html',
+  imports: [MainLayoutComponent],
 })
 export class CallbackComponent implements OnInit {
   constructor(

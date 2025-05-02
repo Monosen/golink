@@ -33,6 +33,7 @@
   <div class="flex justify-between">
     <div class="flex items-center flex-col space-x-2">
       @if (startDate && endDate) {
+        <span class="icon-[mdi--clock]"></span>
         <span
           >start: {{ getFormattedDate(startDate) }} -
           {{ getFormattedTime(startDate) }}</span
