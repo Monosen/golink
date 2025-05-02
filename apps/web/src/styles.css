@@ -1,2 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'tailwindcss';
+
+@plugin "@iconify/tailwind4";
+
+@plugin "@iconify/tailwind4" {
+  prefix: 'iconify';
+  scale: 1.4;
+}
