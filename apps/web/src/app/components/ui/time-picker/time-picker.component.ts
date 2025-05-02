@@ -10,13 +10,12 @@ import {
   NG_VALUE_ACCESSOR,
   FormsModule,
 } from '@angular/forms'
-import { ClockIconComponent } from '../../../assets/icons/clock-icon/clock-icon.component'
 
 @Component({
   selector: 'app-time-picker',
   templateUrl: './time-picker.component.html',
   standalone: true,
-  imports: [FormsModule, ClockIconComponent],
+  imports: [FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
