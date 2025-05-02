@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 import { CreateLinkService } from '../../services/modals/create-link.service'
-import { SearchIconComponent } from '../../assets/icons/search-icon/search-icon.component'
 import { ShortLinkService } from '../../services/short-link.service'
 
 @Component({
   selector: 'app-link-management-bar',
   templateUrl: './link-management-bar.component.html',
-  imports: [SearchIconComponent],
+  imports: [],
 })
 export class LinkManagementBarComponent implements OnInit {
   shortLinkCount: number | string = 0

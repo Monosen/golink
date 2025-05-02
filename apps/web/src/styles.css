@@ -4,6 +4,5 @@
 @plugin "@iconify/tailwind4";
 
 @plugin "@iconify/tailwind4" {
-  prefix: 'iconify';
   scale: 1.4;
 }

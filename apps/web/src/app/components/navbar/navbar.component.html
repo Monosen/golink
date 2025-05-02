@@ -8,9 +8,9 @@
   @if (authService.getIsLoggedIn()) {
     <div class="flex space-x-4">
       <a href="https://github.com/Monosen/golink" target="_blank">
-        <app-github-icon svgClass="size-6"></app-github-icon>
+        <span class="icon-[mdi--github] size-6"></span>
       </a>
-      <app-moon-icon svgClass="size-5"></app-moon-icon>
+      <span class="icon-[solar--moon-bold] size-6"></span>
       <app-user-dropdown></app-user-dropdown>
     </div>
   } @else if (!authService.getIsLoggedIn()) {
@@ -26,7 +26,7 @@
           [queryParams]="{ mode: 'login' }"
           variant="tertiary"
         >
-          <app-login-icon svgClass="size-4"></app-login-icon>
+          <span class="icon-[entypo--login]"></span>
         </app-link>
 
         <app-link
@@ -35,7 +35,7 @@
           [queryParams]="{ mode: 'register' }"
           variant="tertiary"
         >
-          <app-register-icon svgClass="size-4"></app-register-icon>
+          <span class="icon-[mdi--register]"></span>
         </app-link>
       </ul>
     </div>

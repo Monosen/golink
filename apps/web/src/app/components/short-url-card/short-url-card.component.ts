@@ -1,19 +1,10 @@
 import { Component, Input, Inject } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
-import { CopyIconComponent } from '../../assets/icons/copy-icon/copy-icon.component'
-import { SettingIconComponent } from '../../assets/icons/setting-icon/setting-icon.component'
-import { TrashIconComponent } from '../../assets/icons/trash-icon/trash-icon.component'
 import { ShortLinkService } from '../../services/short-link.service'
-import { CheckIconComponent } from '../../assets/icons/check-icon/check-icon.component'
 
 @Component({
   selector: 'app-short-url-card',
-  imports: [
-    CopyIconComponent,
-    SettingIconComponent,
-    TrashIconComponent,
-    CheckIconComponent,
-  ],
+  imports: [],
   templateUrl: './short-url-card.component.html',
 })
 export class ShortUrlCardComponent {

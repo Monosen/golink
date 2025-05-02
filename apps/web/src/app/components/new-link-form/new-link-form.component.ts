@@ -14,7 +14,6 @@ import {
   ShortLinkService,
 } from '../../services/short-link.service'
 import { InputComponent } from '../ui/input/input.component'
-import { ShuffleIconComponent } from '../../assets/icons/shuffle-icon/shuffle-icon.component'
 import { TimePickerComponent } from '../ui/time-picker/time-picker.component'
 import { ButtonComponent } from '../ui/button/button.component'
 
@@ -22,7 +21,6 @@ import { ButtonComponent } from '../ui/button/button.component'
   selector: 'app-new-link-form',
   imports: [
     InputComponent,
-    ShuffleIconComponent,
     TimePickerComponent,
     ButtonComponent,
     ReactiveFormsModule,

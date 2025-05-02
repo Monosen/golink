@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core'
 import { LoginFormComponent } from '../../components/login-form/login-form.component'
 import { RegisterFormComponent } from '../../components/register-form/register-form.component'
 import { ActivatedRoute } from '@angular/router'
-import { GithubIconComponent } from '../../assets/icons/github-icon/github-icon.component'
+
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc'
 
 @Component({
   selector: 'app-auth',
-  imports: [LoginFormComponent, RegisterFormComponent, GithubIconComponent],
+  imports: [LoginFormComponent, RegisterFormComponent],
   templateUrl: './auth.component.html',
 })
 export class AuthComponent implements OnInit {

@@ -12,17 +12,20 @@
       <span>|</span>
       <div class="flex space-x-2">
         @if (isCopied) {
-          <app-check-icon
-            class="transition-opacity duration-500 opacity-100"
-          ></app-check-icon>
+          <span
+            class="icon-[material-symbols--check] size-5 transition-opacity duration-500 opacity-100"
+          ></span>
         } @else {
-          <app-copy-icon
-            class="transition-opacity duration-500 opacity-100"
+          <span
+            class="icon-[material-symbols--file-copy] size-5 transition-opacity duration-500 opacity-100"
             (click)="copyToClipboard()"
-          ></app-copy-icon>
+          ></span>
         }
-        <app-setting-icon></app-setting-icon>
-        <app-trash-icon (click)="removeShortUrl()"></app-trash-icon>
+        <span class="icon-[material-symbols--settings] size-5"></span>
+        <span
+          class="icon-[bxs--trash] size-5"
+          (click)="removeShortUrl()"
+        ></span>
       </div>
     </div>
   </div>
