@@ -13,25 +13,25 @@ import { RedirectComponent } from './pages/redirect/redirect.component'
 export const routes: Routes = [
   {
     path: '',
-    title: 'home',
+    title: 'Home',
     component: HomeComponent,
   },
   {
     path: 'dash',
-    title: 'dash',
+    title: 'Dash',
     canActivate: [authGuard],
     children: [
       { path: '', component: DashComponent },
       {
         path: 'settings',
-        title: 'settings',
+        title: 'Settings',
         component: SettingsComponent,
       },
     ],
   },
   {
     path: 'auth',
-    title: 'auth',
+    title: 'Auth',
     children: [
       {
         path: '',
@@ -40,7 +40,7 @@ export const routes: Routes = [
       },
       {
         path: 'callback',
-        title: 'auth-callback',
+        title: 'Auth-Callback',
         component: CallbackComponent,
         canActivate: [noAuthGuard],
       },
@@ -48,7 +48,7 @@ export const routes: Routes = [
   },
   {
     path: ':code',
-    title: 'redirect',
+    title: 'Redirect',
     component: RedirectComponent,
     canActivate: [shortUrlGuard],
   },
