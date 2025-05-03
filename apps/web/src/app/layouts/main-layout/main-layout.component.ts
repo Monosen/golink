@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs'
 
 import { CreateLinkService } from '../../services/modals/create-link.service'
 import { CreateNewLinkComponent } from '../../components/modals/create-new-link/create-new-link.component'
-import { SettingLinkService } from '../../services/modals/setting-link.service'
 
 @Component({
   selector: 'app-main-layout',
@@ -19,15 +18,9 @@ export class MainLayoutComponent {
   showCreateLinkModal: boolean = false
   showSettingLinkModal: boolean = false
 
-  constructor(
-    private createLinkService: CreateLinkService,
-    private settingLinkService: SettingLinkService
-  ) {
+  constructor(private createLinkService: CreateLinkService) {
     this.createLinkService.modalState$.subscribe((state: boolean) => {
       this.showCreateLinkModal = state
-    })
-    this.settingLinkService.modalState$.subscribe((state: boolean) => {
-      this.showSettingLinkModal = state
     })
   }
 }
