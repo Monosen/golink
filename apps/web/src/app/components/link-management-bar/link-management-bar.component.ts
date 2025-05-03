@@ -27,7 +27,7 @@ export class LinkManagementBarComponent implements OnInit {
 
   openNewLinkModal() {
     const modalData = {
-      title: 'Create a new linkk',
+      title: 'Create a new link',
     }
 
     this.modalService.openModal(NewLinkFormComponent, modalData)
