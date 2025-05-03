@@ -1,5 +1,4 @@
 import { Component } from '@angular/core'
-import { CreateLinkService } from '../../services/modals/create-link.service'
 import {
   FormBuilder,
   FormGroup,
@@ -12,10 +11,11 @@ import {
 import {
   CreateShortUrlDto,
   ShortLinkService,
-} from '../../services/short-link.service'
-import { InputComponent } from '../ui/input/input.component'
-import { TimePickerComponent } from '../ui/time-picker/time-picker.component'
-import { ButtonComponent } from '../ui/button/button.component'
+} from '../../../services/short-link.service'
+import { InputComponent } from '../../ui/input/input.component'
+import { TimePickerComponent } from '../../ui/time-picker/time-picker.component'
+import { ButtonComponent } from '../../ui/button/button.component'
+import { ModalService } from '../../../services/modals/modal.service'
 
 @Component({
   selector: 'app-new-link-form',
@@ -35,7 +35,7 @@ export class NewLinkFormComponent {
   isCustomClick: boolean = false
 
   constructor(
-    private createLinkService: CreateLinkService,
+    private modalService: ModalService,
     private fb: FormBuilder,
     private readonly shortLinkService: ShortLinkService
   ) {
@@ -298,7 +298,7 @@ export class NewLinkFormComponent {
     this.shortLinkService.createShortUrl(createShortUrl).subscribe({
       next: () => {
         this.isLoading = false
-        this.createLinkService.closeModal()
+        this.modalService.closeModal()
         this.createNewLinkForm.reset()
 
         // Actualizar la lista de URLs cortas

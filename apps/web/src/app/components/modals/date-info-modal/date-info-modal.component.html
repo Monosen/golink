@@ -1,0 +1,15 @@
+<div class="space-y-2">
+  @if (startDate) {
+    <p class="text-gray-600">
+      <span class="font-medium">Start:</span>
+      {{ getFormattedDate(startDate) }} -
+      {{ getFormattedTime(startDate) }}
+    </p>
+  }
+  @if (endDate) {
+    <p class="text-gray-600">
+      <span class="font-medium">End:</span>
+      {{ getFormattedDate(endDate) }} - {{ getFormattedTime(endDate) }}
+    </p>
+  }
+</div>

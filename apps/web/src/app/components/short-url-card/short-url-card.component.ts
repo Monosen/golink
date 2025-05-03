@@ -1,6 +1,8 @@
 import { Component, Input, Inject } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
 import { ShortLinkService } from '../../services/short-link.service'
+import { ModalService } from '../../services/modals/modal.service'
+import { DateInfoModalComponent } from '../modals/date-info-modal/date-info-modal.component'
 
 @Component({
   selector: 'app-short-url-card',
@@ -22,6 +24,7 @@ export class ShortUrlCardComponent {
 
   constructor(
     private readonly shortLinkService: ShortLinkService,
+    private readonly modalService: ModalService,
     @Inject(DOCUMENT) private document: Document // Inyecta el objeto DOCUMENT
   ) {
     this.baseUrl = this.document.location.origin // Obtén la URL base
@@ -84,5 +87,15 @@ export class ShortUrlCardComponent {
     }
 
     return this.fullUrl
+  }
+
+  openDateModal() {
+    const modalData = {
+      startDate: this.startDate,
+      endDate: this.endDate,
+      title: 'Fechas del enlace',
+    }
+
+    this.modalService.openModal(DateInfoModalComponent, modalData)
   }
 }

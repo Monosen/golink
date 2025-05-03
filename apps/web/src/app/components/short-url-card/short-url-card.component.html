@@ -32,26 +32,11 @@
   <p>{{ getFullUrl() }}</p>
   <div class="flex justify-between">
     <div class="flex items-center flex-col space-x-2">
-      @if (startDate && endDate) {
-        <span class="icon-[mdi--clock]"></span>
+      @if (startDate || endDate) {
         <span
-          >start: {{ getFormattedDate(startDate) }} -
-          {{ getFormattedTime(startDate) }}</span
-        >
-        <span
-          >end: {{ getFormattedDate(endDate) }} -
-          {{ getFormattedTime(endDate) }}</span
-        >
-      } @else if (startDate) {
-        <span
-          >start: {{ getFormattedDate(startDate) }} -
-          {{ getFormattedTime(startDate) }}</span
-        >
-      } @else if (endDate) {
-        <span
-          >end: {{ getFormattedDate(endDate) }} -
-          {{ getFormattedTime(endDate) }}</span
-        >
+          class="icon-[mdi--clock] cursor-pointer"
+          (click)="openDateModal()"
+        ></span>
       }
     </div>
     <p>{{ getFormattedDate(createdAt) }}</p>

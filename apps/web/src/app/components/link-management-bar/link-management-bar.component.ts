@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import { CreateLinkService } from '../../services/modals/create-link.service'
 import { ShortLinkService } from '../../services/short-link.service'
+import { ModalService } from '../../services/modals/modal.service'
+import { NewLinkFormComponent } from '../modals/new-link-form/new-link-form.component'
 
 @Component({
   selector: 'app-link-management-bar',
@@ -11,18 +12,24 @@ export class LinkManagementBarComponent implements OnInit {
   shortLinkCount: number | string = 0
 
   constructor(
-    private createLinkService: CreateLinkService,
-    private readonly shortLinkService: ShortLinkService
+    private readonly shortLinkService: ShortLinkService,
+    private readonly modalService: ModalService
   ) {}
 
   ngOnInit() {
-    this.shortLinkService.getAllShortUrls().subscribe(shortLinks => {
+    this.shortLinkService.shortUrls$.subscribe(shortLinks => {
       this.shortLinkCount =
         shortLinks.length <= 9 ? `0${shortLinks.length}` : shortLinks.length
     })
+
+    this.shortLinkService.getAllShortUrls().subscribe()
   }
 
-  openModal() {
-    this.createLinkService.openModal() // Llama al servicio para abrir el modal
+  openNewLinkModal() {
+    const modalData = {
+      title: 'Create a new linkk',
+    }
+
+    this.modalService.openModal(NewLinkFormComponent, modalData)
   }
 }

@@ -1,26 +1,26 @@
 import { Component } from '@angular/core'
 import { NavbarComponent } from '../../components/navbar/navbar.component'
 import { FooterComponent } from '../../components/footer/footer.component'
+import { GenericModalComponent } from '../../components/modals/generic-modal/generic-modal.component'
 
-import { Subscription } from 'rxjs'
-
-import { CreateLinkService } from '../../services/modals/create-link.service'
-import { CreateNewLinkComponent } from '../../components/modals/create-new-link/create-new-link.component'
+import { map, Subscription } from 'rxjs'
+import { ModalData, ModalService } from '../../services/modals/modal.service'
 
 @Component({
   selector: 'app-main-layout',
-  imports: [NavbarComponent, FooterComponent, CreateNewLinkComponent],
+  imports: [NavbarComponent, FooterComponent, GenericModalComponent],
   templateUrl: './main-layout.component.html',
 })
 export class MainLayoutComponent {
-  showSubNavbar: boolean = false
   routerSubscription: Subscription | undefined
   showCreateLinkModal: boolean = false
-  showSettingLinkModal: boolean = false
+  showGenericModal: boolean = false
 
-  constructor(private createLinkService: CreateLinkService) {
-    this.createLinkService.modalState$.subscribe((state: boolean) => {
-      this.showCreateLinkModal = state
-    })
+  constructor(private modalService: ModalService) {
+    this.modalService.modalState$
+      .pipe(map((modalData: ModalData | null) => !!modalData))
+      .subscribe((state: boolean) => {
+        this.showGenericModal = state
+      })
   }
 }
