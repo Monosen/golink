@@ -6,11 +6,20 @@
   </div>
 
   @if (authService.getIsLoggedIn()) {
-    <div class="flex space-x-4">
-      <a href="https://github.com/Monosen/golink" target="_blank">
+    <div class="flex space-x-1">
+      <a
+        class="flex justify-center items-center hover:bg-gray-100 text-gray-900 p-1 rounded-md transition-all duration-300"
+        href="https://github.com/Monosen/golink"
+        target="_blank"
+      >
         <span class="icon-[mdi--github] size-6"></span>
       </a>
-      <span class="icon-[solar--moon-bold] size-6"></span>
+      <div
+        class="flex justify-center items-center hover:bg-gray-100 text-gray-900 px-1.5 py-1 rounded-md transition-all duration-300"
+      >
+        <span class="icon-[solar--moon-bold] size-5"></span>
+      </div>
+
       <app-user-dropdown></app-user-dropdown>
     </div>
   } @else if (!authService.getIsLoggedIn()) {
