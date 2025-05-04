@@ -12,18 +12,18 @@
       <span>|</span>
       <div class="flex space-x-2">
         @if (isCopied) {
-          <span
-            class="icon-[material-symbols--check] size-5 transition-opacity duration-500 opacity-100"
-          ></span>
+          <span class="icon-[material-symbols--check] size-5"></span>
         } @else {
           <span
-            class="icon-[material-symbols--file-copy] size-5 transition-opacity duration-500 opacity-100"
+            class="icon-[material-symbols--file-copy] size-5 opacity-100 hover:opacity-70 transition-opacity duration-300"
             (click)="copyToClipboard()"
           ></span>
         }
-        <span class="icon-[material-symbols--settings] size-5"></span>
         <span
-          class="icon-[bxs--trash] size-5"
+          class="icon-[material-symbols--settings] size-5 opacity-100 hover:opacity-70 transition-opacity duration-300"
+        ></span>
+        <span
+          class="icon-[bxs--trash] size-5 opacity-100 hover:opacity-70 transition-opacity duration-300"
           (click)="openDeleteModal()"
         ></span>
       </div>
@@ -34,7 +34,7 @@
     <div class="flex items-center flex-col space-x-2">
       @if (startDate || endDate) {
         <span
-          class="icon-[mdi--clock] cursor-pointer"
+          class="icon-[mdi--clock] cursor-pointer size-5 opacity-100 hover:opacity-70 transition-opacity duration-300"
           (click)="openDateModal()"
         ></span>
       }
