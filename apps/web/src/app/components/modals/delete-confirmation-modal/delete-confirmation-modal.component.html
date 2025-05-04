@@ -1,0 +1,21 @@
+<div class="modal">
+  <div class="modal-content">
+    <p>
+      {{ message }}
+    </p>
+    <div class="space-x-2 flex justify-center mt-4">
+      <button
+        class="btn btn-cancel bg-blue-600 p-2 rounded-lg text-white hover:bg-blue-700 transition-all duration-300"
+        (click)="onCancel()"
+      >
+        {{ cancelButtonText }}
+      </button>
+      <button
+        class="btn btn-confirm bg-red-700 rounded-lg p-2 text-white hover:bg-red-800 transition-all duration-300"
+        (click)="onConfirm()"
+      >
+        {{ confirmButtonText }}
+      </button>
+    </div>
+  </div>
+</div>

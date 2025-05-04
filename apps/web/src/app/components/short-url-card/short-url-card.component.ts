@@ -3,6 +3,7 @@ import { DOCUMENT } from '@angular/common'
 import { ShortLinkService } from '../../services/short-link.service'
 import { ModalService } from '../../services/modals/modal.service'
 import { DateInfoModalComponent } from '../modals/date-info-modal/date-info-modal.component'
+import { DeleteConfirmationModalComponent } from '../modals/delete-confirmation-modal/delete-confirmation-modal.component'
 
 @Component({
   selector: 'app-short-url-card',
@@ -97,5 +98,23 @@ export class ShortUrlCardComponent {
     }
 
     this.modalService.openModal(DateInfoModalComponent, modalData)
+  }
+
+  openDeleteModal() {
+    const modalData = {
+      title: 'Delete Short URL',
+      message: 'Are you sure you want to delete this item?',
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+      onConfirm: () => {
+        this.removeShortUrl()
+        this.modalService.closeModal()
+      },
+      onCancel: () => {
+        this.modalService.closeModal()
+      },
+    }
+
+    this.modalService.openModal(DeleteConfirmationModalComponent, modalData)
   }
 }
