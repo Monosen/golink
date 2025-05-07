@@ -1,84 +1,93 @@
-# Turborepo starter
+# GoLink
 
-This Turborepo starter is maintained by the Turborepo core team.
+<div align="center">
+<img src="public/images/screenshot.png" alt="GoLink Logo">
+</div>
 
-## Using this example
+<div align="center">
+    <a href="https://golink.dev" target="_blank">
+        Sitio Web
+    </a>
+    <span>&nbsp;•&nbsp;</span>
+    <a href="#-tecnologías">
+        Tecnologías
+    </a>
+    <span>&nbsp;•&nbsp;</span>
+    <a href="#-contribuir">
+        Contribuir
+    </a>
+    <span>&nbsp;•&nbsp;</span>
+    <a href="https://twitter.com/golink">
+        Twitter
+    </a>
+</div>
 
-Run the following command:
+<div align="center">
 
-```sh
-npx create-turbo@latest
+![NestJS Badge](https://img.shields.io/badge/NestJS-E0234E?logo=nestjs&logoColor=fff&style=flat)
+![Angular Badge](https://img.shields.io/badge/Angular-DD0031?logo=angular&logoColor=fff&style=flat)
+![GitHub stars](https://img.shields.io/github/stars/monosen/golink)
+![GitHub issues](https://img.shields.io/github/issues/monosen/golink)
+![GitHub forks](https://img.shields.io/github/forks/monosen/golink)
+![GitHub PRs](https://img.shields.io/github/issues-pr/monosen/golink)
+
+</div>
+
+## 📝 Descripción
+
+GoLink es una aplicación web moderna para acortar URLs con características avanzadas:
+
+- **Acortamiento de URLs**: Convierte URLs largas en enlaces cortos y fáciles de compartir
+- **Control de Accesos**: Limita el número de clics permitidos para cada enlace
+- **Enlaces Temporales**: Configura fechas de expiración para que los enlaces dejen de funcionar después de un tiempo determinado
+- **Estadísticas**: Visualiza métricas de uso como número de clics, ubicaciones geográficas y dispositivos
+- **Personalización**: Crea enlaces personalizados con alias únicos
+- **Panel de Control**: Gestiona todos tus enlaces desde un dashboard intuitivo
+
+## 🚀 Tecnologías
+
+### Backend
+
+- [**NestJS**](https://nestjs.com/) - Framework progresivo de Node.js para construir aplicaciones del lado del servidor
+- [**PostgreSQL**](https://www.postgresql.org/) - Base de datos relacional robusta
+- [**JWT**](https://jwt.io/) - Autenticación y autorización
+- [**Docker Compose**](https://docs.docker.com/compose/) - Orquestación de contenedores
+- [**Prisma**](https://www.prisma.io/) - ORM moderno para TypeScript y Node.js
+
+### Frontend
+
+- [**Angular**](https://angular.io/) - Framework para aplicaciones web
+- [**TailwindCSS**](https://tailwindcss.com/) - Framework CSS utilitario
+- [**Iconify**](https://iconify.design/) - Framework de iconos unificados
+
+## 🛠️ Contribuir
+
+1. [Fork](https://github.com/monosen/golink/fork) el repositorio
+
+2. Instala las dependencias:
+
+```bash
+# Backend
+cd apps/api
+pnpm install
+
+# Frontend
+cd apps/web
+pnpm install
 ```
 
-## What's inside?
+3. Ejecuta los servidores de desarrollo:
 
-This Turborepo includes the following packages/apps:
+```bash
+# Backend (desde la carpeta backend)
+pnpm run start:dev
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+# Frontend (desde la carpeta frontend)
+ng serve
 ```
 
-### Develop
+Abre [http://localhost:4200](http://localhost:4200) para el frontend y [http://localhost:3000](http://localhost:3000) para el backend API ✨.
 
-To develop all apps and packages, run the following command:
+## 📄 Licencia
 
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- [**MIT License**](LICENSE)
