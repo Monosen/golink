@@ -90,4 +90,4 @@ Abre [http://localhost:4200](http://localhost:4200) para el frontend y [http://l
 
 ## 📄 Licencia
 
-- [**MIT License**](LICENSE)
+- [**GPL-3.0 License**](LICENCE)
