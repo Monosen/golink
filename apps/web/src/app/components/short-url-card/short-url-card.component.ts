@@ -4,6 +4,7 @@ import { ShortLinkService } from '../../services/short-link.service'
 import { ModalService } from '../../services/modals/modal.service'
 import { DateInfoModalComponent } from '../modals/date-info-modal/date-info-modal.component'
 import { DeleteConfirmationModalComponent } from '../modals/delete-confirmation-modal/delete-confirmation-modal.component'
+import { NewLinkFormComponent } from '../modals/new-link-form/new-link-form.component'
 
 @Component({
   selector: 'app-short-url-card',
@@ -116,5 +117,24 @@ export class ShortUrlCardComponent {
     }
 
     this.modalService.openModal(DeleteConfirmationModalComponent, modalData)
+  }
+
+  openSettingModal() {
+    const fullUrl = this.fullUrl
+
+    const modalData = {
+      title: 'Editar Enlace',
+      isEditMode: true,
+      id: this.id,
+      initialData: {
+        longUrl: fullUrl,
+        shortCode: this.shortCode,
+        startDate: this.startDate,
+        endDate: this.endDate,
+        clickLimit: this.clickLimit,
+      },
+    }
+
+    this.modalService.openModal(NewLinkFormComponent, modalData)
   }
 }

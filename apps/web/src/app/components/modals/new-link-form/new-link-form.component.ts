@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import {
   FormBuilder,
   FormGroup,
@@ -27,7 +27,11 @@ import { ModalService } from '../../../services/modals/modal.service'
   ],
   templateUrl: './new-link-form.component.html',
 })
-export class NewLinkFormComponent {
+export class NewLinkFormComponent implements OnInit {
+  @Input() isEditMode: boolean = false
+  @Input() id: number = 0
+  @Input() initialData: any = null
+
   createNewLinkForm: FormGroup
   errorMessage: string = ''
   isLoading: boolean = false
@@ -60,6 +64,38 @@ export class NewLinkFormComponent {
         ],
       }
     )
+  }
+
+  ngOnInit() {
+    if (this.isEditMode && this.initialData) {
+      this.createNewLinkForm.patchValue({
+        longUrl: this.initialData.longUrl,
+        shortCode: this.initialData.shortCode,
+        clickLimit: this.initialData.clickLimit,
+      })
+
+      if (this.initialData.startDate) {
+        const startDate = new Date(this.initialData.startDate)
+        this.createNewLinkForm.patchValue({
+          startDate: startDate.toISOString().split('T')[0],
+          startTime: startDate.toTimeString().slice(0, 5),
+        })
+        this.isCustomDate = true
+      }
+
+      if (this.initialData.endDate) {
+        const endDate = new Date(this.initialData.endDate)
+        this.createNewLinkForm.patchValue({
+          endDate: endDate.toISOString().split('T')[0],
+          endTime: endDate.toTimeString().slice(0, 5),
+        })
+        this.isCustomDate = true
+      }
+
+      if (this.initialData.clickLimit) {
+        this.isCustomClick = true
+      }
+    }
   }
 
   // Validador personalizado para validar que si hay una fecha, debe haber una hora y viceversa
@@ -272,7 +308,6 @@ export class NewLinkFormComponent {
 
   onSubmit() {
     if (this.createNewLinkForm.invalid) {
-      // Marcar todos los campos como tocados para mostrar errores
       this.markFormGroupTouched(this.createNewLinkForm)
       return
     }
@@ -281,7 +316,7 @@ export class NewLinkFormComponent {
     this.errorMessage = ''
 
     const formValue = this.createNewLinkForm.value
-    const createShortUrl: CreateShortUrlDto = {
+    const shortUrlData: CreateShortUrlDto = {
       longUrl: formValue.longUrl,
       shortCode: formValue.shortCode,
       startDate:
@@ -295,21 +330,37 @@ export class NewLinkFormComponent {
       clickLimit: formValue.clickLimit || null,
     }
 
-    this.shortLinkService.createShortUrl(createShortUrl).subscribe({
-      next: () => {
-        this.isLoading = false
-        this.modalService.closeModal()
-        this.createNewLinkForm.reset()
-
-        // Actualizar la lista de URLs cortas
-        this.shortLinkService.getAllShortUrls().subscribe()
-      },
-      error: error => {
-        this.isLoading = false
-        this.errorMessage =
-          error.error?.message || 'Registration failed. Please try again.'
-      },
-    })
+    if (this.isEditMode) {
+      this.shortLinkService.updateShortUrl(this.id, shortUrlData).subscribe({
+        next: () => {
+          this.isLoading = false
+          this.modalService.closeModal()
+          this.createNewLinkForm.reset()
+          this.shortLinkService.getAllShortUrls().subscribe()
+        },
+        error: error => {
+          this.isLoading = false
+          this.errorMessage =
+            error.error?.message ||
+            'Error al actualizar el enlace. Por favor, intente de nuevo.'
+        },
+      })
+    } else {
+      this.shortLinkService.createShortUrl(shortUrlData).subscribe({
+        next: () => {
+          this.isLoading = false
+          this.modalService.closeModal()
+          this.createNewLinkForm.reset()
+          this.shortLinkService.getAllShortUrls().subscribe()
+        },
+        error: error => {
+          this.isLoading = false
+          this.errorMessage =
+            error.error?.message ||
+            'Error al crear el enlace. Por favor, intente de nuevo.'
+        },
+      })
+    }
   }
 
   // Método auxiliar para marcar todos los campos como tocados

@@ -249,7 +249,7 @@
   <app-button
     class="justify-self-center"
     type="submit"
-    name="create"
+    [name]="isEditMode ? 'Update' : 'New'"
     [disabled]="isButtonDisabled()"
   >
   </app-button>

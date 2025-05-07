@@ -24,8 +24,11 @@ export interface CreateShortUrlDto {
 }
 
 export interface UpdateShortUrlDto {
-  shortCode?: string
   longUrl?: string
+  shortCode?: string
+  startDate?: Date | null
+  endDate?: Date | null
+  clickLimit?: number | null
 }
 
 @Injectable({
