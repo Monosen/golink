@@ -17,8 +17,8 @@
         Contribuir
     </a>
     <span>&nbsp;•&nbsp;</span>
-    <a href="https://twitter.com/golink">
-        Twitter
+    <a href="https://www.linkedin.com/in/edinson-bolaños-dp">
+        Linkedin
     </a>
 </div>
 
