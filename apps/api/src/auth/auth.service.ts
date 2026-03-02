@@ -135,9 +135,7 @@ export class AuthService {
     const user = await this.prismaService.user.create({
       data: {
         ...userData,
-        password: await argon2.hash(password, {
-          salt: Buffer.alloc(16),
-        }),
+        password: await argon2.hash(password),
       },
       select: {
         id: true,

@@ -36,7 +36,7 @@ export class RegisterFormComponent {
     ])
     this.password = new FormControl('', [
       control => Validators.required(control),
-      () => Validators.minLength(6),
+      Validators.minLength(6),
     ])
     this.registerForm = new FormGroup({
       name: this.name,

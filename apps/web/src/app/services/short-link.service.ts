@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { Observable, BehaviorSubject } from 'rxjs'
 import { tap } from 'rxjs/operators'
-import { environment } from '../../environments/environment.development'
+import { environment } from '../../environments/environment'
 
 export interface ShortUrl {
   id: number
@@ -70,7 +70,11 @@ export class ShortLinkService {
 
   // Actualizar una URL corta por su ID
   updateShortUrl(id: number, data: UpdateShortUrlDto): Observable<ShortUrl> {
-    return this.http.put<ShortUrl>(`${this.apiUrl}/update/${id}`, data)
+    return this.http.patch<ShortUrl>(`${this.apiUrl}/update/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
+      },
+    })
   }
 
   // Eliminar una URL corta y actualizar la lista

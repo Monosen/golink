@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { map, catchError, tap, shareReplay } from 'rxjs/operators'
 import { Router } from '@angular/router'
-import { environment } from '../../../environments/environment.development'
+import { environment } from '../../../environments/environment'
 
 export interface LocalUser {
   id: string
